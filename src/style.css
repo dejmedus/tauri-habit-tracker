@@ -39,7 +39,6 @@
 .flex {
   display: flex;
   align-items: center;
-  gap: 1em;
 }
 .flex button{
   margin: 0 0.28em;
@@ -74,28 +73,29 @@
  color: pink;
 }
 
-.complete {
+.complete1,.complete2, .complete3,.complete4,.complete5,.complete6,.complete7{
   color: rgb(255, 255, 255,0);
 }
-.complete:nth-of-type(7) {
+
+.complete7 {
   background-color: rgb(173, 216, 230);
 }
-.complete:nth-of-type(6){
+.complete6{
   background-color: rgb(173, 216, 230, 0.8);
 }
-.complete:nth-of-type(5){
+.complete5{
   background-color: rgb(173, 216, 230, 0.7);
 }
-.complete:nth-of-type(4){
+.complete4{
   background-color: rgb(173, 216, 230, 0.6);
 }
-.complete:nth-of-type(3){
+.complete3{
   background-color: rgb(173, 216, 230, 0.5);
 }
-.complete:nth-of-type(2){
+.complete2{
   background-color: rgb(173, 216, 230, 0.4);
 }
-.complete{
+.complete1{
   background-color: rgb(173, 216, 230, 0.3);
 }
 
