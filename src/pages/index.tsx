@@ -13,17 +13,17 @@ function App() {
     {
       name: "habit1",
       days: [false, false, false, false, false, true, true],
+      schedule: [],
     },
   ]);
   // habitArr [{
   //   name: name,
   //   days: [false, false, false, false, false, false, false],
+  //   schedule: [0, 2]
   // }]
 
+  // triggers at midnight
   function reset() {
-    // triggers at midnight
-
-    // update date
     setToday(dateObj);
 
     let updatedArr = [...habitArr];
@@ -63,7 +63,10 @@ function App() {
               // offset is the number of hidden, previous boxes
               const offset = habit.days.length - 7;
               let completeCount = 0;
-              return (
+
+              // if habit is scheduled to be completed today or if schedule is empty return it
+              return habit.schedule.length == 0 ||
+                habit.schedule.includes(today.dayNum) ? (
                 <div className="flex">
                   {habitIndex == inputOpen ? (
                     <input
@@ -116,7 +119,7 @@ function App() {
                       })}
                   </div>
                 </div>
-              );
+              ) : null;
             })
           : null}
       </div>
@@ -129,6 +132,7 @@ function App() {
               {
                 name: name,
                 days: [false, false, false, false, false, false, false],
+                schedule: [],
               },
             ]);
             setName("");
@@ -143,7 +147,6 @@ function App() {
           <button type="submit">+</button>
         </form>
       </div>
-      <button onClick={reset}>reset</button>
     </div>
   );
 }
