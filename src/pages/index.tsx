@@ -6,8 +6,6 @@ import { IToday } from "../helpers/types";
 import resetAtMidnight from "../helpers/midnightReset";
 
 function App() {
-  const [catFact, setCatFact] = useState("");
-
   const [name, setName] = useState("");
   const [nameInput, setNameInput] = useState("");
 
@@ -38,22 +36,11 @@ function App() {
     window.addEventListener("click", () => setInputOpen(null));
   }, []);
 
-  async function getCatFact() {
-    console.log("cat fact");
-    const client = await getClient();
-    const response = await client.get("https://meowfacts.herokuapp.com/", {
-      timeout: 30,
-      responseType: ResponseType.JSON,
-    });
-
-    setCatFact(response.data.data[0]);
-  }
-
   return (
     <div className="container">
-      <h1>{`${today.day} ${today.month} ${today.date}${today.ordinal(
+      <h2>{`${today.day} ${today.month} ${today.date}${today.ordinal(
         today.date
-      )}`}</h1>
+      )}`}</h2>
       <div className="habits">
         {habitArr != null
           ? habitArr.map((habit, habitIndex) => {
@@ -159,18 +146,7 @@ function App() {
           />
           <button type="submit">+</button>
         </form>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            getCatFact();
-          }}
-        >
-          <button type="submit">Cat Fact</button>
-        </form>
       </div>
-
-      <p>{catFact}</p>
     </div>
   );
 }
