@@ -14,7 +14,6 @@ function App() {
     const client = await getClient();
     const response = await client.get("https://meowfacts.herokuapp.com/", {
       timeout: 30,
-      // the expected response type
       responseType: ResponseType.JSON,
     });
 
@@ -22,42 +21,43 @@ function App() {
   }
   return (
     <div className="container">
-      <div className="habits">
-        {habitArr != null
-          ? habitArr.map((habit, habitIndex) => {
-              const handlePress = (e) => {
-                if (e.key === "Enter") {
-                  setEditName(null);
+      {habitArr != null
+        ? habitArr.map((habit, habitIndex) => {
+            const handlePress = (e) => {
+              if (e.key === "Enter") {
+                setEditName(null);
 
-                  let updatedArr = [...habitArr];
-                  updatedArr[habitIndex].name = nameEditInput;
-                  setHabitArr(updatedArr);
-                }
-              };
+                let updatedArr = [...habitArr];
+                updatedArr[habitIndex].name = nameEditInput;
+                setHabitArr(updatedArr);
+              }
+            };
 
-              return (
-                <div className="row">
-                  {habitIndex == editName ? (
-                    <input
-                      onKeyDown={handlePress}
-                      onChange={(e) => {
-                        setNameEditInput(e.currentTarget.value);
-                      }}
-                      value={nameEditInput}
-                      placeholder={nameEditInput}
-                      autoFocus={true}
-                    />
-                  ) : (
-                    <p
-                      onDoubleClick={() => {
-                        setNameEditInput(habit.name);
-                        setEditName(habitIndex);
-                      }}
-                      className="habitName"
-                    >
-                      {habit.name}
-                    </p>
-                  )}
+            return (
+              <div className="flex">
+                {habitIndex == editName ? (
+                  <input
+                    className="habitName"
+                    onKeyDown={handlePress}
+                    onChange={(e) => {
+                      setNameEditInput(e.currentTarget.value);
+                    }}
+                    value={nameEditInput}
+                    placeholder={nameEditInput}
+                    autoFocus={true}
+                  />
+                ) : (
+                  <p
+                    onDoubleClick={() => {
+                      setNameEditInput(habit.name);
+                      setEditName(habitIndex);
+                    }}
+                    className="habitName"
+                  >
+                    {habit.name}
+                  </p>
+                )}
+                <div className="boxes flex">
                   {habit.days.map((day, dayIndex) => {
                     habitArr[habitIndex].days[dayIndex];
                     return (
@@ -69,17 +69,19 @@ function App() {
                             !updatedArr[habitIndex].days[dayIndex];
                           setHabitArr(updatedArr);
                         }}
-                        className={`box row ${day == true ? "complete" : null}`}
+                        className={`box flex ${
+                          day == true ? "complete" : null
+                        }`}
                       ></div>
                     );
                   })}
                 </div>
-              );
-            })
-          : null}
-      </div>
+              </div>
+            );
+          })
+        : null}
 
-      <div className="row">
+      <div className="flex">
         <form
           onSubmit={(e) => {
             e.preventDefault();

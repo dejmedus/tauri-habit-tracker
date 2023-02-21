@@ -18,34 +18,49 @@
   -webkit-text-size-adjust: 100%;
 }
 
+* {
+  padding: 0; 
+  margin: 0
+}
+
 .container {
-  margin: 0;
+  margin: 4rem;
   padding-top: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  gap: 0.4em;
 }
-
-.row {
+.flex {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 1em;
 }
-
-.box {
-  width: 32px;
-  height: 32px;
-  border-radius: 18px;
-  border: 2px solid var(--primary);
-}
-
-.box:hover {
-  background-color: pink;
+.flex button{
+  margin: 0 0.28em;
 }
 
 .habitName {
+  font-size: 1.2em;
+  width: 25vw;
   cursor: pointer;
-  font-weight: 800;
+  text-align: start;
+  padding: 0 0.6em;
+}
+.boxes {
+  gap: 0 0.1em;
+}
+.box {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary);
+  border-radius: 8px;
+  /* border: 2px solid var(--primary); */
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.box:hover {
+  background-color: pink;
 }
 
 .complete {
@@ -55,7 +70,7 @@
 input {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.2em;
+  padding: 0.6em 0;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -77,10 +92,10 @@ button {
   transition: border-color 0.25s;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
-
 button:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
