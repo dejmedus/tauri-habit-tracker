@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
-import { getClient, ResponseType } from "@tauri-apps/api/http";
 import { dateObj, daysOfWeek } from "../helpers/date";
 import { IToday } from "../helpers/types";
 import resetAtMidnight from "../helpers/midnightReset";
@@ -10,8 +8,13 @@ function App() {
   const [nameInput, setNameInput] = useState("");
 
   const [inputOpen, setInputOpen] = useState(null);
-  let today: IToday = dateObj;
-  const [habitArr, setHabitArr] = useState([]);
+  const [today, setToday] = useState<IToday>(dateObj);
+  const [habitArr, setHabitArr] = useState([
+    {
+      name: "habit1",
+      days: [false, false, false, false, false, true, true],
+    },
+  ]);
   // habitArr [{
   //   name: name,
   //   days: [false, false, false, false, false, false, false],
@@ -21,11 +24,14 @@ function App() {
     // triggers at midnight
 
     // update date
-    today = dateObj;
+    setToday(dateObj);
 
-    const updatedArr = habitArr.forEach((habit) => {
+    let updatedArr = [...habitArr];
+    updatedArr.forEach((habit) => {
       habit.days.push(false);
     });
+
+    setHabitArr(updatedArr);
   }
 
   useEffect(() => {
@@ -122,17 +128,7 @@ function App() {
               ...cur,
               {
                 name: name,
-                days: [
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                  true,
-                  true,
-                ],
+                days: [false, false, false, false, false, false, false],
               },
             ]);
             setName("");
@@ -147,6 +143,7 @@ function App() {
           <button type="submit">+</button>
         </form>
       </div>
+      <button onClick={reset}>reset</button>
     </div>
   );
 }
