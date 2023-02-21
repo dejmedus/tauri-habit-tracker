@@ -4,9 +4,13 @@
   line-height: 24px;
   font-weight: 400;
 
-  color: #0f0f0f;
-  background-color: #f6f6f6;
+  --text: #0f0f0f;
+  --bg: #f6f6f6;
 
+  --primary: #ffffff;
+
+  color: var(--text);
+  background-color: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -28,7 +32,39 @@
   justify-content: center;
 }
 
-input,
+.box {
+  width: 32px;
+  height: 32px;
+  border-radius: 18px;
+  border: 2px solid var(--primary);
+}
+
+.box:hover {
+  background-color: pink;
+}
+
+.habitName {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.complete {
+  background-color: lightblue;
+}
+
+input {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--text);
+  background-color: var(--primary);
+  transition: border-color 0.25s;
+}
+
+.addTask,
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -36,15 +72,21 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
+  color: var(--text);
+  background-color: var(--primary);
   transition: border-color 0.25s;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 
+button:hover {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    color: #f6f6f6;
-    background-color: #2f2f2f;
+    --text: #f6f6f6
+    --bg: #2f2f2f;
+  
+    --primary: black;
   }
 }
