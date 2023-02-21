@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 import { getClient, ResponseType } from "@tauri-apps/api/http";
-import { dateObj } from "../helpers/date";
+import { dateObj, daysOfWeek } from "../helpers/date";
 import { IToday } from "../helpers/types";
 import resetAtMidnight from "../helpers/midnightReset";
 
@@ -67,6 +67,7 @@ function App() {
                 }
               };
 
+              // offset is the number of hidden, previous boxes
               const offset = habit.days.length - 7;
               let completeCount = 0;
               return (
@@ -98,7 +99,8 @@ function App() {
                     {habit.days
                       .slice(habit.days.length - 7)
                       .map((complete, dayIndex) => {
-                        habitArr[habitIndex].days[offset + dayIndex];
+                        let num = today.dayNum - (6 - dayIndex);
+                        num = num < 0 ? 7 + num : num;
                         return (
                           <div
                             key={dayIndex}
@@ -109,13 +111,13 @@ function App() {
                                 !updatedArr[habitIndex].days[offset + dayIndex];
                               setHabitArr(updatedArr);
                             }}
-                            className={`box ${
+                            className={`box flex ${
                               complete == true
                                 ? `complete${++completeCount}`
                                 : ""
                             }`}
                           >
-                            {today.dayNum - dayIndex}
+                            {daysOfWeek[num][0]}
                           </div>
                         );
                       })}
