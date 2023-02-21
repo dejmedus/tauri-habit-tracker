@@ -53,6 +53,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.2em;
+  margin-left: 0.4em;
 }
 .habitName {
   font-size: 1.2em;
@@ -110,15 +111,19 @@
   background-color: rgb(var(--color), 0.3);
 }
 
-input {
+.habits input {
   border-radius: 8px;
-  font-size: 1em;
   border: none;
-  font-weight: 500;
   font-family: inherit;
   color: var(--text);
   background-color: var(--primary);
   transition: border-color 0.25s;
+
+  /* https://stackoverflow.com/questions/6586302/add-padding-to-html-text-input-field */
+  padding: 0 5px;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box; /* Opera/IE 8+ */
 }
 
 .addTask,
@@ -133,6 +138,7 @@ button {
   background-color: var(--primary);
   transition: border-color 0.25s;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  margin-top: 0.5em;
 }
 button:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
