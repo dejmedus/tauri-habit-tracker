@@ -25,12 +25,16 @@
 
 .container {
   margin: 4rem;
-  padding-top: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   gap: 0.4em;
+}
+.container h1 {
+  font-weight: 500;
+  color: rgb(157, 157, 157);
+  padding: 4vh 0;
 }
 .flex {
   display: flex;
@@ -41,6 +45,12 @@
   margin: 0 0.28em;
 }
 
+.habits {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
 .habitName {
   font-size: 1.2em;
   width: 25vw;
@@ -49,22 +59,44 @@
   padding: 0 0.6em;
 }
 .boxes {
-  gap: 0 0.1em;
+  gap: 0 0.2em;
 }
 .box {
   width: 32px;
   height: 32px;
   background-color: var(--primary);
+  color: var(--primary);
   border-radius: 8px;
   /* border: 2px solid var(--primary); */
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 .box:hover {
-  background-color: pink;
+ color: pink;
 }
 
 .complete {
-  background-color: lightblue;
+  color: rgb(255, 255, 255,0);
+}
+.complete:nth-of-type(7) {
+  background-color: rgb(173, 216, 230);
+}
+.complete:nth-of-type(6){
+  background-color: rgb(173, 216, 230, 0.8);
+}
+.complete:nth-of-type(5){
+  background-color: rgb(173, 216, 230, 0.7);
+}
+.complete:nth-of-type(4){
+  background-color: rgb(173, 216, 230, 0.6);
+}
+.complete:nth-of-type(3){
+  background-color: rgb(173, 216, 230, 0.5);
+}
+.complete:nth-of-type(2){
+  background-color: rgb(173, 216, 230, 0.4);
+}
+.complete{
+  background-color: rgb(173, 216, 230, 0.3);
 }
 
 input {
