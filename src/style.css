@@ -9,8 +9,12 @@
 
   --primary: #ffffff;
 
+  --color: 173, 216, 230;
+  --color-text: rgb(132, 180, 197);
+
   color: var(--text);
   background-color: var(--bg);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,19 +23,19 @@
 }
 
 * {
-  padding: 0; 
-  margin: 0
+  padding: 0;
+  margin: 0;
 }
 
 .container {
-  margin: 4rem;
+  margin: 2em 4em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   gap: 0.4em;
 }
-.container h1 {
+.container h2 {
   font-weight: 500;
   color: rgb(157, 157, 157);
   padding: 4vh 0;
@@ -40,7 +44,7 @@
   display: flex;
   align-items: center;
 }
-.flex button{
+.flex button {
   margin: 0 0.28em;
 }
 
@@ -52,10 +56,10 @@
 }
 .habitName {
   font-size: 1.2em;
-  width: 25vw;
+  width: 30vw;
   cursor: pointer;
   text-align: start;
-  padding: 0 0.6em;
+  margin-right: 1em;
 }
 .boxes {
   gap: 0 0.2em;
@@ -66,44 +70,50 @@
   background-color: var(--primary);
   color: var(--primary);
   border-radius: 8px;
-  /* border: 2px solid var(--primary); */
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  justify-content: center !important;
+  font-weight: 800;
 }
 .box:hover {
- color: pink;
+  color: var(--color-text);
 }
 
-.complete1,.complete2, .complete3,.complete4,.complete5,.complete6,.complete7{
-  color: rgb(255, 255, 255,0);
+.complete1,
+.complete2,
+.complete3,
+.complete4,
+.complete5,
+.complete6,
+.complete7 {
+  color: rgb(255, 255, 255, 0);
 }
 
 .complete7 {
-  background-color: rgb(173, 216, 230);
+  background-color: rgb(var(--color));
 }
-.complete6{
-  background-color: rgb(173, 216, 230, 0.8);
+.complete6 {
+  background-color: rgb(var(--color), 0.8);
 }
-.complete5{
-  background-color: rgb(173, 216, 230, 0.7);
+.complete5 {
+  background-color: rgb(var(--color), 0.7);
 }
-.complete4{
-  background-color: rgb(173, 216, 230, 0.6);
+.complete4 {
+  background-color: rgb(var(--color), 0.6);
 }
-.complete3{
-  background-color: rgb(173, 216, 230, 0.5);
+.complete3 {
+  background-color: rgb(var(--color), 0.5);
 }
-.complete2{
-  background-color: rgb(173, 216, 230, 0.4);
+.complete2 {
+  background-color: rgb(var(--color), 0.4);
 }
-.complete1{
-  background-color: rgb(173, 216, 230, 0.3);
+.complete1 {
+  background-color: rgb(var(--color), 0.3);
 }
 
 input {
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 0;
   font-size: 1em;
+  border: none;
   font-weight: 500;
   font-family: inherit;
   color: var(--text);
@@ -128,12 +138,16 @@ button:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #f6f6f6
-    --bg: #2f2f2f;
-  
+    --text: #f6f6f6;
+    --bg: #1f1f1f;
+
     --primary: black;
+    --color: 154, 107, 255;
+    --color-text: rgb(189, 159, 255);
+
+    color: var(--text);
+    background-color: var(--bg);
   }
 }
