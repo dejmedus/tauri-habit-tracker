@@ -37,12 +37,14 @@ const ordinal = (number) => {
   }
 };
 
-const day = new Date();
-export const dateObj = {
-  date: day.getDate(),
-  day: daysOfWeek[day.getDay()],
-  dayNum: day.getDay(),
-  month: months[day.getMonth()],
-  year: day.getMonth(),
-  ordinal: ordinal,
+export const dateObj = () => {
+  const day = new Date();
+  return {
+    date: day.getDate(),
+    day: daysOfWeek[day.getDay()],
+    dayNum: day.getDay(),
+    month: months[day.getMonth()],
+    year: day.getMonth(),
+    ordinal: ordinal,
+  };
 };
