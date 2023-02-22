@@ -7,6 +7,8 @@ function App() {
   const [name, setName] = useState("");
   const [nameInput, setNameInput] = useState("");
 
+  const [modal, setModal] = useState(false);
+
   const [inputOpen, setInputOpen] = useState(null);
   const [today, setToday] = useState<IToday>(dateObj);
   const [habitArr, setHabitArr] = useState([
@@ -14,6 +16,16 @@ function App() {
       name: "habit1",
       days: [false, false, false, false, false, true, true],
       schedule: [],
+    },
+    {
+      name: "should show on wednesday",
+      days: [false, false, false, false, false, true, true],
+      schedule: [3],
+    },
+    {
+      name: "tues, thurs, fri",
+      days: [false, false, false, true, false, false, false],
+      schedule: [2, 4, 5],
     },
   ]);
   // habitArr [{
@@ -41,6 +53,10 @@ function App() {
     // when we click outside input, close input
     window.addEventListener("click", () => setInputOpen(null));
   }, []);
+
+  function openModal() {
+    setModal(true);
+  }
 
   return (
     <div className="container">
@@ -82,6 +98,11 @@ function App() {
                     />
                   ) : (
                     <p
+                      onClick={() => {
+                        setTimeout(() => {
+                          console.log(inputRef.current);
+                        }, 2000);
+                      }}
                       onDoubleClick={() => {
                         setNameInput(habit.name);
                         setInputOpen(habitIndex);
@@ -147,6 +168,27 @@ function App() {
           <button type="submit">+</button>
         </form>
       </div>
+      {modal == true ? (
+        <div className="modal">
+          <svg
+            onClick={() => setModal(false)}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          this is a modal
+          <p>this is still a modal</p>
+        </div>
+      ) : null}
     </div>
   );
 }

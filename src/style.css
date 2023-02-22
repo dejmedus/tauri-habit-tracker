@@ -32,10 +32,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
   gap: 0.4em;
 }
 .container h2 {
+  text-align: center;
   font-weight: 500;
   color: rgb(157, 157, 157);
   padding: 4vh 0;
@@ -142,6 +142,36 @@ button {
 }
 button:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* .schedule button {
+  padding: 0.2em;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.modal {
+  height: 280px;
+  width: 500px;
+  background-color: var(--primary);
+  border-radius: 12px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  padding: 2em;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  -webkit-transition: 0.5s;
+  transition: all 0.3s linear;
+}
+
+.modal svg:hover {
+  opacity: 60%;
 }
 
 @media (prefers-color-scheme: dark) {
