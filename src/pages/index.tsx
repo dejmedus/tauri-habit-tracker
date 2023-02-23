@@ -7,7 +7,7 @@ function App() {
   const [name, setName] = useState("");
   const [nameInput, setNameInput] = useState("");
 
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(null);
 
   const [inputOpen, setInputOpen] = useState(null);
   const inputOpenRef = useRef(inputOpen);
@@ -37,7 +37,8 @@ function App() {
   // habitArr [{
   //   name: name,
   //   days: [false, false, false, false, false, false, false],
-  //   schedule: [0, 2]
+  //   schedule: [0, 2],
+  //   color: pink
   // }]
 
   // triggers at midnight
@@ -101,12 +102,15 @@ function App() {
                     />
                   ) : (
                     <p
-                      onClick={() => {
+                      onClick={(e) => {
                         const timeout = setTimeout(() => {
-                          // check if input is open
+                          // check if edit habit input is open
                           // if not, open modal
-                          console.log("check input open", inputOpenRef.current);
-                          inputOpenRef.current == null && setModal(true);
+                          inputOpenRef.current == null &&
+                            setModal({
+                              ...habitArr[e.target.id],
+                              habitIndex: habitIndex,
+                            });
                         }, 200);
                         return () => clearTimeout(timeout);
                       }}
@@ -115,6 +119,7 @@ function App() {
                         setInputOpen(habitIndex);
                       }}
                       className="habitName"
+                      id={habitIndex}
                     >
                       {habit.name}
                     </p>
@@ -175,10 +180,10 @@ function App() {
           <button type="submit">+</button>
         </form>
       </div>
-      {modal == true ? (
+      {modal != null ? (
         <div className="modal">
           <svg
-            onClick={() => setModal(false)}
+            onClick={() => setModal(null)}
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -192,8 +197,27 @@ function App() {
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
-          this is a modal
-          <p>this is still a modal</p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              let updatedArr = [...habitArr];
+              updatedArr[modal.habitIndex].name = modal.name;
+              // updatedArr[modal.habitIndex].schedule = modal.schedule;
+              // updatedArr[modal.habitIndex].color = modal.color;
+              setHabitArr(updatedArr);
+              setModal(null);
+            }}
+          >
+            <input
+              className="addTask"
+              onChange={(e) => setModal({ ...modal, name: e.target.value })}
+              value={modal.name}
+              placeholder={modal.name}
+            />
+            {/* currentColor */}
+            {/* schedule */}
+            <button type="submit">Save</button>
+          </form>
         </div>
       ) : null}
     </div>
