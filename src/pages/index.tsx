@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { dateObj, daysOfWeek } from "../helpers/date";
 import { IToday } from "../helpers/types";
 import resetAtMidnight from "../helpers/midnightReset";
@@ -10,6 +10,12 @@ function App() {
   const [modal, setModal] = useState(false);
 
   const [inputOpen, setInputOpen] = useState(null);
+  const inputOpenRef = useRef(inputOpen);
+
+  useEffect(() => {
+    inputOpenRef.current = inputOpen;
+  }, [inputOpen]);
+
   const [today, setToday] = useState<IToday>(dateObj);
   const [habitArr, setHabitArr] = useState([
     {
@@ -38,6 +44,7 @@ function App() {
   function reset() {
     setToday(dateObj);
 
+    console.log("reset");
     let updatedArr = [...habitArr];
     updatedArr.forEach((habit) => {
       habit.days.push(false);
@@ -53,10 +60,6 @@ function App() {
     // when we click outside input, close input
     window.addEventListener("click", () => setInputOpen(null));
   }, []);
-
-  function openModal() {
-    setModal(true);
-  }
 
   return (
     <div className="container">
@@ -99,9 +102,13 @@ function App() {
                   ) : (
                     <p
                       onClick={() => {
-                        setTimeout(() => {
-                          console.log(inputRef.current);
-                        }, 2000);
+                        const timeout = setTimeout(() => {
+                          // check if input is open
+                          // if not, open modal
+                          console.log("check input open", inputOpenRef.current);
+                          inputOpenRef.current == null && setModal(true);
+                        }, 200);
+                        return () => clearTimeout(timeout);
                       }}
                       onDoubleClick={() => {
                         setNameInput(habit.name);
