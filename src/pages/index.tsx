@@ -17,23 +17,26 @@ function App() {
   }, [inputOpen]);
 
   const [today, setToday] = useState<IToday>(dateObj);
-  const [habitArr, setHabitArr] = useState([
-    {
-      name: "habit1",
-      days: [false, false, false, false, false, true, true],
-      schedule: [],
-    },
-    {
-      name: "should show on wednesday",
-      days: [false, false, false, false, false, true, true],
-      schedule: [3],
-    },
-    {
-      name: "tues, thurs, fri",
-      days: [false, false, false, true, false, false, false],
-      schedule: [2, 4, 5],
-    },
-  ]);
+  const [habitArr, setHabitArr] = useState([]);
+
+  // [
+  //   {
+  //     name: "habit1",
+  //     days: [false, false, false, false, false, true, true],
+  //     schedule: [],
+  //   },
+  //   {
+  //     name: "should show on wednesday",
+  //     days: [false, false, false, false, false, true, true],
+  //     schedule: [3],
+  //   },
+  //   {
+  //     name: "tues, thurs, fri",
+  //     days: [false, false, false, true, false, false, false],
+  //     schedule: [2, 4, 5],
+  //   },
+  // ]
+
   // habitArr [{
   //   name: name,
   //   days: [false, false, false, false, false, false, false],
@@ -52,6 +55,7 @@ function App() {
     });
 
     setHabitArr(updatedArr);
+    saveToLocalStorage(habitArr);
   }
 
   useEffect(() => {
@@ -60,6 +64,10 @@ function App() {
 
     // when we click outside input, close input
     window.addEventListener("click", () => setInputOpen(null));
+
+    if (localStorage.getItem("habitArr") !== null) {
+      setHabitArr(JSON.parse(localStorage.habitArr));
+    }
   }, []);
 
   return (
@@ -77,6 +85,7 @@ function App() {
                   let updatedArr = [...habitArr];
                   updatedArr[habitIndex].name = nameInput;
                   setHabitArr(updatedArr);
+                  saveToLocalStorage(habitArr);
                 }
               };
 
@@ -139,6 +148,7 @@ function App() {
                               updatedArr[habitIndex].days[offset + dayIndex] =
                                 !updatedArr[habitIndex].days[offset + dayIndex];
                               setHabitArr(updatedArr);
+                              saveToLocalStorage(habitArr);
                             }}
                             className={`box flex ${
                               complete == true
@@ -168,6 +178,7 @@ function App() {
                 schedule: [],
               },
             ]);
+            saveToLocalStorage(habitArr);
             setName("");
           }}
         >
@@ -205,6 +216,7 @@ function App() {
               // updatedArr[modal.habitIndex].schedule = modal.schedule;
               // updatedArr[modal.habitIndex].color = modal.color;
               setHabitArr(updatedArr);
+              saveToLocalStorage(habitArr);
               setModal(null);
             }}
           >
@@ -225,3 +237,7 @@ function App() {
 }
 
 export default App;
+
+function saveToLocalStorage(habitArr) {
+  localStorage.habitArr = JSON.stringify(habitArr);
+}
