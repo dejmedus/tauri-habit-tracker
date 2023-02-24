@@ -4,10 +4,8 @@ import { IToday, IHabit } from "../helpers/types";
 import resetAtMidnight from "../helpers/midnightReset";
 
 function App() {
-  // add new habit
-  const [habitName, setHabitName] = useState("");
-  // double clicking on habit to edit name
-  const [editHabitName, setEditHabitName] = useState("");
+  const [newHabit, setNewHabit] = useState("");
+  const [editHabit, setEditHabit] = useState("");
 
   const [modal, setModal] = useState(null);
 
@@ -16,10 +14,6 @@ function App() {
 
   const colors = ["purple", "sky", "orange", "blue", "pink", "green"];
   const [curColor, setCurColor] = useState(0);
-
-  useEffect(() => {
-    inputOpenRef.current = inputOpen;
-  }, [inputOpen]);
 
   const [today, setToday] = useState<IToday>(dateObj);
   const [habits, setHabits] = useState<IHabit[]>([]);
@@ -32,14 +26,17 @@ function App() {
     window.addEventListener("click", () => setInputOpen(null));
 
     if (localStorage.getItem("habits") !== null) {
-      console.log("habits", habits);
+      console.log("not null");
       setHabits(JSON.parse(localStorage.habits));
     }
   }, []);
 
   useEffect(() => {
+    inputOpenRef.current = inputOpen;
+  }, [inputOpen]);
+
+  useEffect(() => {
     localStorage.habits = JSON.stringify(habits);
-    console.log("setting", habits);
   }, [habits]);
 
   // triggers at midnight
@@ -67,9 +64,9 @@ function App() {
                 if (e.key === "Enter") {
                   setInputOpen(null);
 
-                  if (editHabitName.trim() !== "") {
+                  if (editHabit.trim() !== "") {
                     let updatedArr = [...habits];
-                    updatedArr[habitIndex].name = editHabitName;
+                    updatedArr[habitIndex].name = editHabit;
                     setHabits(updatedArr);
                   }
                 }
@@ -89,10 +86,10 @@ function App() {
                       className="habitName"
                       onKeyDown={handlePress}
                       onChange={(e) => {
-                        setEditHabitName(e.currentTarget.value);
+                        setEditHabit(e.currentTarget.value);
                       }}
-                      value={editHabitName}
-                      placeholder={editHabitName}
+                      value={editHabit}
+                      placeholder={editHabit}
                       autoFocus={true}
                     />
                   ) : (
@@ -110,7 +107,7 @@ function App() {
                         return () => clearTimeout(timeout);
                       }}
                       onDoubleClick={() => {
-                        setEditHabitName(habit.name);
+                        setEditHabit(habit.name);
                         setInputOpen(habitIndex);
                       }}
                       className="habitName"
@@ -142,7 +139,7 @@ function App() {
                               // update streak
                               if (days[days.length - 1] == true) {
                                 let streak = 0;
-                                for (let i = 0; i < days.length; i++) {
+                                for (let i = days.length - 1; i > 0; i--) {
                                   if (days[i]) {
                                     streak++;
                                   } else {
@@ -150,9 +147,16 @@ function App() {
                                   }
                                 }
                                 updatedArr[habitIndex].streak = streak;
+
+                                //update longest streak
+                                updatedArr[habitIndex].longestStreak =
+                                  streak > habit.longestStreak
+                                    ? streak
+                                    : habit.longestStreak;
                               }
 
                               setHabits(updatedArr);
+                              console.log(habits);
                             }}
                             className={`box flex ${
                               complete == true
@@ -177,33 +181,34 @@ function App() {
           onSubmit={(e) => {
             e.preventDefault();
 
-            if (habitName.trim() !== "") {
+            if (newHabit.trim() !== "") {
               setHabits((cur) => [
                 ...cur,
                 {
-                  name: habitName,
+                  name: newHabit,
                   days: [false, false, false, false, false, false, false],
                   schedule: [],
                   color: colors[curColor],
-                  streak: null,
+                  streak: 0,
+                  longestStreak: 0,
                 },
               ]);
-              setHabitName("");
+              setNewHabit("");
               setCurColor((cur) => (cur <= colors.length ? cur + 1 : 0));
             }
           }}
         >
           <input
             className="addHabit"
-            onChange={(e) => setHabitName(e.currentTarget.value)}
-            value={habitName}
+            onChange={(e) => setNewHabit(e.currentTarget.value)}
+            value={newHabit}
             placeholder="Add a Task..."
           />
           <button type="submit">+</button>
         </form>
       </div>
 
-      {/* modal */}
+      {/* modal = {...habit, habitIndex} */}
       {modal != null ? (
         <div className="modal">
           <svg
@@ -238,6 +243,8 @@ function App() {
               value={modal.name}
               placeholder={modal.name}
             />
+            <p>Longest Streak: {modal.longestStreak}</p>
+            <p>Current Streak: {modal.streak}</p>
             {/* currentColor */}
             {/* schedule */}
             <button type="submit">Save</button>
