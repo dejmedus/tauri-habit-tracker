@@ -1,62 +1,28 @@
 import { useEffect, useState, useRef } from "react";
 import { dateObj, daysOfWeek } from "../helpers/date";
-import { IToday } from "../helpers/types";
+import { IToday, IHabit } from "../helpers/types";
 import resetAtMidnight from "../helpers/midnightReset";
 
 function App() {
-  const [name, setName] = useState("");
-  const [nameInput, setNameInput] = useState("");
+  // add new habit
+  const [habitName, setHabitName] = useState("");
+  // double clicking on habit to edit name
+  const [editHabitName, setEditHabitName] = useState("");
 
   const [modal, setModal] = useState(null);
 
   const [inputOpen, setInputOpen] = useState(null);
   const inputOpenRef = useRef(inputOpen);
 
+  const colors = ["purple", "sky", "orange", "blue", "pink", "green"];
+  const [curColor, setCurColor] = useState(0);
+
   useEffect(() => {
     inputOpenRef.current = inputOpen;
   }, [inputOpen]);
 
   const [today, setToday] = useState<IToday>(dateObj);
-  const [habitArr, setHabitArr] = useState([]);
-
-  // [
-  //   {
-  //     name: "habit1",
-  //     days: [false, false, false, false, false, true, true],
-  //     schedule: [],
-  //   },
-  //   {
-  //     name: "should show on wednesday",
-  //     days: [false, false, false, false, false, true, true],
-  //     schedule: [3],
-  //   },
-  //   {
-  //     name: "tues, thurs, fri",
-  //     days: [false, false, false, true, false, false, false],
-  //     schedule: [2, 4, 5],
-  //   },
-  // ]
-
-  // habitArr [{
-  //   name: name,
-  //   days: [false, false, false, false, false, false, false],
-  //   schedule: [0, 2],
-  //   color: pink
-  // }]
-
-  // triggers at midnight
-  function reset() {
-    setToday(dateObj);
-
-    console.log("reset");
-    let updatedArr = [...habitArr];
-    updatedArr.forEach((habit) => {
-      habit.days.push(false);
-    });
-
-    setHabitArr(updatedArr);
-    saveToLocalStorage(habitArr);
-  }
+  const [habits, setHabits] = useState<IHabit[]>([]);
 
   useEffect(() => {
     // setTimeOut, triggers at 12am
@@ -65,10 +31,29 @@ function App() {
     // when we click outside input, close input
     window.addEventListener("click", () => setInputOpen(null));
 
-    if (localStorage.getItem("habitArr") !== null) {
-      setHabitArr(JSON.parse(localStorage.habitArr));
+    if (localStorage.getItem("habits") !== null) {
+      console.log("habits", habits);
+      setHabits(JSON.parse(localStorage.habits));
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.habits = JSON.stringify(habits);
+    console.log("setting", habits);
+  }, [habits]);
+
+  // triggers at midnight
+  function reset() {
+    setToday(dateObj);
+
+    console.log("reset");
+    let updatedArr = [...habits];
+    updatedArr.forEach((habit) => {
+      habit.days.push(false);
+    });
+
+    setHabits(updatedArr);
+  }
 
   return (
     <div className="container">
@@ -76,16 +61,17 @@ function App() {
         today.date
       )}`}</h2>
       <div className="habits">
-        {habitArr != null
-          ? habitArr.map((habit, habitIndex) => {
+        {habits != null
+          ? habits.map((habit, habitIndex) => {
               const handlePress = (e) => {
                 if (e.key === "Enter") {
                   setInputOpen(null);
 
-                  let updatedArr = [...habitArr];
-                  updatedArr[habitIndex].name = nameInput;
-                  setHabitArr(updatedArr);
-                  saveToLocalStorage(habitArr);
+                  if (editHabitName.trim() !== "") {
+                    let updatedArr = [...habits];
+                    updatedArr[habitIndex].name = editHabitName;
+                    setHabits(updatedArr);
+                  }
                 }
               };
 
@@ -103,10 +89,10 @@ function App() {
                       className="habitName"
                       onKeyDown={handlePress}
                       onChange={(e) => {
-                        setNameInput(e.currentTarget.value);
+                        setEditHabitName(e.currentTarget.value);
                       }}
-                      value={nameInput}
-                      placeholder={nameInput}
+                      value={editHabitName}
+                      placeholder={editHabitName}
                       autoFocus={true}
                     />
                   ) : (
@@ -117,14 +103,14 @@ function App() {
                           // if not, open modal
                           inputOpenRef.current == null &&
                             setModal({
-                              ...habitArr[e.target.id],
+                              ...habits[e.target.id],
                               habitIndex: habitIndex,
                             });
                         }, 200);
                         return () => clearTimeout(timeout);
                       }}
                       onDoubleClick={() => {
-                        setNameInput(habit.name);
+                        setEditHabitName(habit.name);
                         setInputOpen(habitIndex);
                       }}
                       className="habitName"
@@ -133,6 +119,8 @@ function App() {
                       {habit.name}
                     </p>
                   )}
+
+                  {/*  */}
                   <div className="boxes flex">
                     {habit.days
                       .slice(habit.days.length - 7)
@@ -144,15 +132,31 @@ function App() {
                             key={dayIndex}
                             id={dayIndex}
                             onClick={() => {
-                              let updatedArr = [...habitArr];
-                              updatedArr[habitIndex].days[offset + dayIndex] =
-                                !updatedArr[habitIndex].days[offset + dayIndex];
-                              setHabitArr(updatedArr);
-                              saveToLocalStorage(habitArr);
+                              let updatedArr = [...habits];
+
+                              // toggle habit complete
+                              let days = updatedArr[habitIndex].days;
+                              days[offset + dayIndex] =
+                                !days[offset + dayIndex];
+
+                              // update streak
+                              if (days[days.length - 1] == true) {
+                                let streak = 0;
+                                for (let i = 0; i < days.length; i++) {
+                                  if (days[i]) {
+                                    streak++;
+                                  } else {
+                                    break;
+                                  }
+                                }
+                                updatedArr[habitIndex].streak = streak;
+                              }
+
+                              setHabits(updatedArr);
                             }}
                             className={`box flex ${
                               complete == true
-                                ? `complete${++completeCount}`
+                                ? `complete${++completeCount} ${habit.color}`
                                 : ""
                             }`}
                           >
@@ -166,31 +170,40 @@ function App() {
             })
           : null}
       </div>
+
+      {/* add a habit */}
       <div className="flex">
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            setHabitArr((cur) => [
-              ...cur,
-              {
-                name: name,
-                days: [false, false, false, false, false, false, false],
-                schedule: [],
-              },
-            ]);
-            saveToLocalStorage(habitArr);
-            setName("");
+
+            if (habitName.trim() !== "") {
+              setHabits((cur) => [
+                ...cur,
+                {
+                  name: habitName,
+                  days: [false, false, false, false, false, false, false],
+                  schedule: [],
+                  color: colors[curColor],
+                  streak: null,
+                },
+              ]);
+              setHabitName("");
+              setCurColor((cur) => (cur <= colors.length ? cur + 1 : 0));
+            }
           }}
         >
           <input
-            className="addTask"
-            onChange={(e) => setName(e.currentTarget.value)}
-            value={name}
+            className="addHabit"
+            onChange={(e) => setHabitName(e.currentTarget.value)}
+            value={habitName}
             placeholder="Add a Task..."
           />
           <button type="submit">+</button>
         </form>
       </div>
+
+      {/* modal */}
       {modal != null ? (
         <div className="modal">
           <svg
@@ -211,17 +224,16 @@ function App() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              let updatedArr = [...habitArr];
+              let updatedArr = [...habits];
               updatedArr[modal.habitIndex].name = modal.name;
               // updatedArr[modal.habitIndex].schedule = modal.schedule;
               // updatedArr[modal.habitIndex].color = modal.color;
-              setHabitArr(updatedArr);
-              saveToLocalStorage(habitArr);
+              setHabits(updatedArr);
               setModal(null);
             }}
           >
             <input
-              className="addTask"
+              className="addHabit"
               onChange={(e) => setModal({ ...modal, name: e.target.value })}
               value={modal.name}
               placeholder={modal.name}
@@ -237,7 +249,3 @@ function App() {
 }
 
 export default App;
-
-function saveToLocalStorage(habitArr) {
-  localStorage.habitArr = JSON.stringify(habitArr);
-}

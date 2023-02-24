@@ -79,6 +79,31 @@
   color: var(--color-text);
 }
 
+.purple {
+  background-color: #d8b4fe;
+  --color: 216, 180, 254;
+}
+.sky {
+  background-color: #7dd3fc;
+  --color: 125, 211, 252;
+}
+.blue {
+  background-color: #93c5fd;
+  --color: 147, 197, 253;
+}
+.orange {
+  background-color: #fdba74;
+  --color: 253, 186, 116;
+}
+.pink {
+  background-color: #f9a8d4;
+  --color: 249, 168, 212;
+}
+.green {
+  background-color: #bef264;
+  --color: 190, 242, 100;
+}
+
 .complete1,
 .complete2,
 .complete3,
@@ -126,7 +151,7 @@
   box-sizing: border-box; /* Opera/IE 8+ */
 }
 
-.addTask,
+.addHabit,
 button {
   border-radius: 8px;
   border: 1px solid transparent;
