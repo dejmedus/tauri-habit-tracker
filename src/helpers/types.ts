@@ -6,3 +6,11 @@ export interface IToday {
   year: number;
   ordinal: Function;
 }
+
+export interface IHabit {
+  name: string;
+  days: Boolean[];
+  schedule: Number[];
+  color: string;
+  streak: number;
+}
