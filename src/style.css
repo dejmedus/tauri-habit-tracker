@@ -9,9 +9,6 @@
 
   --primary: #ffffff;
 
-  --color: 173, 216, 230;
-  --color-text: rgb(132, 180, 197);
-
   color: var(--text);
   background-color: var(--bg);
 
@@ -20,6 +17,31 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+.purple {
+  /* #d8b4fe; */
+  --color: 216, 180, 254;
+}
+.sky {
+  /* #7dd3fc; */
+  --color: 125, 211, 252;
+}
+.blue {
+  /* #93c5fd; */
+  --color: 147, 197, 253;
+}
+.orange {
+  /* #fdba74; */
+  --color: 253, 186, 116;
+}
+.pink {
+  /* #f9a8d4; */
+  --color: 249, 168, 212;
+}
+.green {
+  /* #bef264; */
+  --color: 190, 242, 100;
 }
 
 * {
@@ -76,32 +98,8 @@
   font-weight: 800;
 }
 .box:hover {
-  color: var(--color-text);
-}
-
-.purple {
-  background-color: #d8b4fe;
-  --color: 216, 180, 254;
-}
-.sky {
-  background-color: #7dd3fc;
-  --color: 125, 211, 252;
-}
-.blue {
-  background-color: #93c5fd;
-  --color: 147, 197, 253;
-}
-.orange {
-  background-color: #fdba74;
-  --color: 253, 186, 116;
-}
-.pink {
-  background-color: #f9a8d4;
-  --color: 249, 168, 212;
-}
-.green {
-  background-color: #bef264;
-  --color: 190, 242, 100;
+  /* color: rgb(var(--color)); */
+  color: rgba(124, 155, 255, 0.431);
 }
 
 .complete1,
@@ -193,6 +191,24 @@ button:hover {
 
   -webkit-transition: 0.5s;
   transition: all 0.3s linear;
+
+  background-color: rgb(170, 208, 244);
+}
+
+.modal .addHabit {
+  border-radius: 2px;
+  box-shadow: none;
+  background-color: rgb(170, 208, 244);
+  border-bottom: 4px solid white;
+  padding: 0 0.4em;
+  font-size: 1.2em;
+  margin-bottom: 0.6em;
+}
+.modal button {
+  padding: 0.4em 1.6em;
+}
+.modal .addHabit:focus {
+  background-color: white;
 }
 
 .modal svg:hover {
@@ -205,10 +221,33 @@ button:hover {
     --bg: #1f1f1f;
 
     --primary: black;
-    --color: 154, 107, 255;
-    --color-text: rgb(189, 159, 255);
 
     color: var(--text);
     background-color: var(--bg);
+  }
+
+  .purple {
+    /* rgb(184, 118, 255); */
+    --color: 184, 118, 255;
+  }
+  .sky {
+    /* rgb(85, 201, 255); */
+    --color: 85, 201, 255;
+  }
+  .blue {
+    /* rgb(81, 162, 255); */
+    --color: 81, 162, 255;
+  }
+  .orange {
+    /* rgb(255, 161, 61); */
+    --color: 255, 161, 61;
+  }
+  .pink {
+    /* rgb(255, 94, 183); */
+    --color: 255, 94, 183;
+  }
+  .green {
+    /* rgb(172, 246, 45); */
+    --color: 172, 246, 45;
   }
 }
