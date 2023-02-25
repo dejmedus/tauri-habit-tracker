@@ -4,13 +4,13 @@ export interface IToday {
   dayNum: number;
   month: string;
   year: number;
-  ordinal: Function;
+  ordinal: string;
 }
 
 export interface IHabit {
   name: string;
-  days: Boolean[];
-  schedule: Number[];
+  days: boolean[];
+  schedule: number[];
   color: string;
   streak: number;
 }

@@ -44,7 +44,7 @@ export const dateObj = () => {
     day: daysOfWeek[day.getDay()],
     dayNum: day.getDay(),
     month: months[day.getMonth()],
-    year: day.getMonth(),
-    ordinal: ordinal,
+    year: day.getFullYear(),
+    ordinal: ordinal(day.getDate()),
   };
 };
