@@ -8,11 +8,21 @@ function App() {
   const [editHabit, setEditHabit] = useState("");
 
   const [modal, setModal] = useState(null);
+  const [deleteModal, setDeleteModal] = useState(null);
 
   const [inputOpen, setInputOpen] = useState(null);
   const inputOpenRef = useRef(inputOpen);
 
-  const colors = ["purple", "sky", "orange", "blue", "pink", "green"];
+  const colors = [
+    "purple",
+    "sky",
+    "red",
+    "orange",
+    "blue",
+    "yellow",
+    "pink",
+    "green",
+  ];
   const [curColor, setCurColor] = useState(0);
 
   const [today, setToday] = useState<IToday>(dateObj);
@@ -34,9 +44,20 @@ function App() {
     inputOpenRef.current = inputOpen;
   }, [inputOpen]);
 
-  useEffect(() => {
-    localStorage.habits = JSON.stringify(habits);
-  }, [habits]);
+  // useEffect(() => {
+  //   localStorage.habits = JSON.stringify(habits);
+  // }, [habits]);
+
+  function updateHabits(updatedArr) {
+    setHabits(updatedArr);
+    localStorage.habits = JSON.stringify(updatedArr);
+    console.log("storage", JSON.parse(localStorage.habits));
+  }
+
+  function deleteHabit(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    setDeleteModal(parseInt(e.target.value));
+  }
 
   // triggers at midnight
   function reset() {
@@ -48,7 +69,7 @@ function App() {
       habit.days.push(false);
     });
 
-    setHabits(updatedArr);
+    updateHabits(updatedArr);
   }
 
   return (
@@ -65,7 +86,7 @@ function App() {
                   if (editHabit.trim() !== "") {
                     let updatedArr = [...habits];
                     updatedArr[habitIndex].name = editHabit;
-                    setHabits(updatedArr);
+                    updateHabits(updatedArr);
                   }
                 }
               };
@@ -77,10 +98,9 @@ function App() {
               // if habit is scheduled to be completed today or if schedule is empty return it
               return habit.schedule.length == 0 ||
                 habit.schedule.includes(today.dayNum) ? (
-                <div className="flex">
+                <div className="flex" key={habit.name}>
                   {habitIndex == inputOpen ? (
                     <input
-                      key={habit.name}
                       className="habitName"
                       onKeyDown={handlePress}
                       onChange={(e) => {
@@ -150,8 +170,7 @@ function App() {
                                 updatedArr[habitIndex].streak = streak;
                               }
 
-                              setHabits(updatedArr);
-                              console.log(habits);
+                              updateHabits(updatedArr);
                             }}
                             className={`box flex ${
                               complete == true
@@ -188,7 +207,9 @@ function App() {
                 },
               ]);
               setNewHabit("");
-              setCurColor((cur) => (cur <= colors.length ? cur + 1 : 0));
+              setCurColor((cur) => (cur < colors.length - 1 ? cur + 1 : 0));
+              console.log(curColor, "/", colors.length);
+              localStorage.habits = JSON.stringify(habits);
             }
           }}
         >
@@ -199,6 +220,14 @@ function App() {
             placeholder="Add a Task..."
           />
           <button type="submit">+</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              updateHabits([]);
+            }}
+          >
+            DELETE ALL
+          </button>
         </form>
       </div>
 
@@ -227,7 +256,7 @@ function App() {
               updatedArr[modal.habitIndex].name = modal.name;
               // updatedArr[modal.habitIndex].schedule = modal.schedule;
               // updatedArr[modal.habitIndex].color = modal.color;
-              setHabits(updatedArr);
+              updateHabits(updatedArr);
               setModal(null);
             }}
           >
@@ -245,8 +274,38 @@ function App() {
             <p>Current Streak: {modal.streak}</p>
             {/* currentColor */}
             {/* schedule */}
+            <button value={modal.habitIndex} onClick={deleteHabit}>
+              delete
+            </button>
             <button type="submit">Save</button>
           </form>
+        </div>
+      ) : null}
+      {deleteModal !== null ? (
+        <div className="deleteModal">
+          Are you sure you want to delete{" "}
+          <span>{habits[deleteModal].name}</span>?
+          <div className="flex">
+            <button
+              onClick={() => {
+                setDeleteModal(null);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                // delete habit
+                let updatedArr = [...habits];
+                updatedArr.splice(deleteModal, 1);
+                updateHabits(updatedArr);
+                setDeleteModal(null);
+                setModal(null);
+              }}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       ) : null}
     </div>
