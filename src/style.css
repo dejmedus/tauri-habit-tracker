@@ -22,26 +22,42 @@
 .purple {
   /* #d8b4fe; */
   --color: 216, 180, 254;
+  --text-color: rgb(184, 118, 255);
 }
 .sky {
   /* #7dd3fc; */
   --color: 125, 211, 252;
+  --text-color: rgb(85, 201, 255);
 }
 .blue {
   /* #93c5fd; */
   --color: 147, 197, 253;
+  --text-color: rgb(81, 162, 255);
 }
 .orange {
   /* #fdba74; */
   --color: 253, 186, 116;
+  --text-color: rgb(255, 155, 48);
 }
 .pink {
   /* #f9a8d4; */
   --color: 249, 168, 212;
+  --text-color: rgb(255, 94, 183);
 }
 .green {
   /* #bef264; */
   --color: 190, 242, 100;
+  --text-color: rgb(156, 227, 34);
+}
+.yellow {
+  /* rgb(255, 255, 136); */
+  --color: 255, 251, 131;
+  --text-color: rgb(255, 221, 0);
+}
+.red {
+  /* rgb(255, 129, 129); */
+  --color: 255, 129, 129;
+  --text-color: rgb(255, 79, 79);
 }
 
 * {
@@ -98,8 +114,7 @@
   font-weight: 800;
 }
 .box:hover {
-  /* color: rgb(var(--color)); */
-  color: rgba(124, 155, 255, 0.431);
+  color: var(--text-color);
 }
 
 .complete1,
@@ -178,7 +193,6 @@ button:hover {
 .modal {
   height: 280px;
   width: 500px;
-  background-color: var(--primary);
   border-radius: 12px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   padding: 2em;
@@ -210,9 +224,43 @@ button:hover {
 .modal .addHabit:focus {
   background-color: white;
 }
-
 .modal svg:hover {
   opacity: 60%;
+}
+
+.deleteModal {
+  height: 100px;
+  width: 280px;
+  background-color: var(--primary);
+  border-radius: 12px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  padding: 2em;
+  z-index: 2;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+
+  -webkit-transition: 0.5s;
+  transition: all 0.3s linear;
+
+  font-weight: bold;
+}
+.deleteModal span {
+  text-decoration: underline;
+}
+.deleteModal div {
+  margin-top: 1em;
+  justify-content: center;
+}
+.deleteModal button:first-of-type {
+  background-color: rgb(106, 176, 255);
+}
+.deleteModal button {
+  background-color: rgb(255, 112, 112);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -229,25 +277,41 @@ button:hover {
   .purple {
     /* rgb(184, 118, 255); */
     --color: 184, 118, 255;
+    --text-color: #d8b4fe;
   }
   .sky {
     /* rgb(85, 201, 255); */
     --color: 85, 201, 255;
+    --text-color: rgb(125, 211, 252);
   }
   .blue {
     /* rgb(81, 162, 255); */
     --color: 81, 162, 255;
+    --text-color: #93c5fd;
   }
   .orange {
     /* rgb(255, 161, 61); */
     --color: 255, 161, 61;
+    --text-color: #fdba74;
   }
   .pink {
     /* rgb(255, 94, 183); */
     --color: 255, 94, 183;
+    --text-color: #f9a8d4;
   }
   .green {
     /* rgb(172, 246, 45); */
     --color: 172, 246, 45;
+    --text-color: #bef264;
+  }
+  .yellow {
+    /* rgb(255, 252, 52); */
+    --color: 255, 252, 52;
+    --text-color: rgb(255, 255, 136);
+  }
+  .red {
+    /* rgb(255, 79, 79); */
+    --color: 255, 79, 79;
+    --text-color: rgb(255, 129, 129);
   }
 }
