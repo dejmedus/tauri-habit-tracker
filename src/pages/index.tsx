@@ -67,6 +67,7 @@ function App() {
     let updatedArr = [...habits];
     updatedArr.forEach((habit) => {
       habit.days.push(false);
+      habit.streak = 0;
     });
 
     updateHabits(updatedArr);
@@ -269,7 +270,9 @@ function App() {
 
             <p>
               Longest Streak: {modal.longestStreak}{" "}
-              {modal.streak == modal.longestStreak ? "🔥" : null}
+              {modal.longestStreak !== 0 && modal.streak == modal.longestStreak
+                ? "🔥"
+                : null}
             </p>
             <p>Current Streak: {modal.streak}</p>
             {/* currentColor */}
@@ -316,8 +319,10 @@ export default App;
 
 function longestStreak(days: boolean[]) {
   let streak = 0;
+  let highestStreak = 0;
   for (let i = 0; i < days.length; i++) {
     streak = days[i] == true ? streak + 1 : 0;
+    highestStreak = streak > highestStreak ? streak : highestStreak;
   }
-  return streak;
+  return highestStreak;
 }
