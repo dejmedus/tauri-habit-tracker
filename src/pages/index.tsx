@@ -26,7 +26,6 @@ function App() {
     window.addEventListener("click", () => setInputOpen(null));
 
     if (localStorage.getItem("habits") !== null) {
-      console.log("not null");
       setHabits(JSON.parse(localStorage.habits));
     }
   }, []);
@@ -54,12 +53,11 @@ function App() {
 
   return (
     <div className="container">
-      <h2>{`${today.day} ${today.month} ${today.date}${today.ordinal(
-        today.date
-      )}`}</h2>
+      <h2>{`${today.day} ${today.month} ${today.date}${today.ordinal}`}</h2>
       <div className="habits">
         {habits != null
           ? habits.map((habit, habitIndex) => {
+              // if input is not empty, update habit name
               const handlePress = (e) => {
                 if (e.key === "Enter") {
                   setInputOpen(null);
@@ -102,6 +100,9 @@ function App() {
                             setModal({
                               ...habits[e.target.id],
                               habitIndex: habitIndex,
+                              longestStreak: longestStreak(
+                                habits[e.target.id].days
+                              ),
                             });
                         }, 200);
                         return () => clearTimeout(timeout);
@@ -117,13 +118,13 @@ function App() {
                     </p>
                   )}
 
-                  {/*  */}
+                  {/* habits */}
                   <div className="boxes flex">
                     {habit.days
                       .slice(habit.days.length - 7)
                       .map((complete, dayIndex) => {
-                        let num = today.dayNum - (6 - dayIndex);
-                        num = num < 0 ? 7 + num : num;
+                        let dayNumber = today.dayNum - (6 - dayIndex);
+                        dayNumber = dayNumber < 0 ? 7 + dayNumber : dayNumber;
                         return (
                           <div
                             key={dayIndex}
@@ -147,12 +148,6 @@ function App() {
                                   }
                                 }
                                 updatedArr[habitIndex].streak = streak;
-
-                                //update longest streak
-                                updatedArr[habitIndex].longestStreak =
-                                  streak > habit.longestStreak
-                                    ? streak
-                                    : habit.longestStreak;
                               }
 
                               setHabits(updatedArr);
@@ -164,7 +159,7 @@ function App() {
                                 : ""
                             }`}
                           >
-                            {daysOfWeek[num][0]}
+                            {daysOfWeek[dayNumber][0]}
                           </div>
                         );
                       })}
@@ -190,7 +185,6 @@ function App() {
                   schedule: [],
                   color: colors[curColor],
                   streak: 0,
-                  longestStreak: 0,
                 },
               ]);
               setNewHabit("");
@@ -243,7 +237,11 @@ function App() {
               value={modal.name}
               placeholder={modal.name}
             />
-            <p>Longest Streak: {modal.longestStreak}</p>
+
+            <p>
+              Longest Streak: {modal.longestStreak}{" "}
+              {modal.streak == modal.longestStreak ? "🔥" : null}
+            </p>
             <p>Current Streak: {modal.streak}</p>
             {/* currentColor */}
             {/* schedule */}
@@ -256,3 +254,11 @@ function App() {
 }
 
 export default App;
+
+function longestStreak(days: boolean[]) {
+  let streak = 0;
+  for (let i = 0; i < days.length; i++) {
+    streak = days[i] == true ? streak + 1 : 0;
+  }
+  return streak;
+}
