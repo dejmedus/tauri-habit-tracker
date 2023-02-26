@@ -1,9 +1,17 @@
-# Tauri + Next.js + Typescript
+## Habit Tracker
 
-This template should help get you started developing with Tauri, Next.js and Typescript.
+A simple habit tracker made with [Tauri](https://tauri.app/) utilizing [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 
-## Recommended IDE Setup
+- Schedule habits to complete
+- Track streaks
+- Edit habits
+
+
+### Using Tauri
+
+#### Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
-npm run tauri dev
+#### Run Dev
+```npm run tauri dev```
