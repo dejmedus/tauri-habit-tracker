@@ -38,7 +38,15 @@ const ordinal = (number: number) => {
 };
 
 export const dateObj = () => {
-  const day = new Date();
+  const newDate = new Date();
+  const day = new Date(
+    newDate.getFullYear(),
+    newDate.getMonth(),
+    newDate.getDate(),
+    0,
+    0,
+    0 // ...at 00:00:00 hours);
+  );
   return {
     fullDate: day,
     fullDateString: day.toDateString(),
