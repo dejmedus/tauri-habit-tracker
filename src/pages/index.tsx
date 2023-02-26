@@ -40,7 +40,7 @@ function App() {
     }
 
     if (localStorage.fullDate !== null) {
-      let lastStoredDate = new Date(localStorage.fullDate);
+      let lastStoredDate = new Date(JSON.parse(localStorage.fullDate));
 
       // if days have passes since last app use
       // if this doesn't like midnight changes, lastStoredDate < today.fullDate
@@ -77,7 +77,6 @@ function App() {
   function reset() {
     setToday(dateObj);
 
-    console.log("reset");
     let updatedArr = [...habits];
     updatedArr.forEach((habit) => {
       habit.days.push(false);
@@ -146,18 +145,20 @@ function App() {
                     />
                   ) : (
                     <p
+                      id={habitIndex}
                       onClick={(e) => {
                         const timeout = setTimeout(() => {
                           // check if edit habit input is open
                           // if not, open modal
-                          const target = e.target as HTMLTextAreaElement;
+                          const element = e.target as HTMLTextAreaElement;
+                          console.log(element);
                           inputOpenRef.current == null &&
                             setModal({
-                              ...habits[target.id],
+                              ...habits[element.id],
                               habitIndex: habitIndex,
-                              curName: habits[target.id].name,
+                              curName: habits[element.id].name,
                               longestStreak: longestStreak(
-                                habits[target.id].days
+                                habits[element.id].days
                               ),
                             });
                         }, 200);
@@ -327,7 +328,7 @@ function App() {
                 <option value="orange">orange</option>
               </select>
 
-              <div className="flex">
+              {/* <div className="flex">
                 <button value="0" onClick={toggleScheduleDate}>
                   S
                 </button>
@@ -349,7 +350,7 @@ function App() {
                 <button value="6" onClick={toggleScheduleDate}>
                   S
                 </button>
-              </div>
+              </div> */}
               {/* schedule */}
               <button
                 className="link-button"
