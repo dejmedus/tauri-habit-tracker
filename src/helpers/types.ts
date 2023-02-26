@@ -1,4 +1,6 @@
 export interface IToday {
+  fullDate: Date;
+  fullDateString: string;
   date: number;
   day: string;
   dayNum: number;

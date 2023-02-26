@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { dateObj, daysOfWeek } from "../helpers/date";
+import { dateObj, daysOfWeek, daysBetween } from "../helpers/date";
 import { IToday, IHabit } from "../helpers/types";
 import resetAtMidnight from "../helpers/midnightReset";
 
@@ -29,7 +29,7 @@ function App() {
   const [habits, setHabits] = useState<IHabit[]>([]);
 
   useEffect(() => {
-    // setTimeOut, triggers at 12am
+    // setTimeout, triggers at 12am
     resetAtMidnight(reset);
 
     // when we click outside input, close input
@@ -38,25 +38,39 @@ function App() {
     if (localStorage.getItem("habits") !== null) {
       setHabits(JSON.parse(localStorage.habits));
     }
+
+    if (localStorage.fullDate !== null) {
+      let lastStoredDate = new Date(localStorage.fullDate);
+
+      // if days have passes since last app use
+      // if this doesn't like midnight changes, lastStoredDate < today.fullDate
+      if (lastStoredDate !== today.fullDate) {
+        // add those days to habit history
+        let updatedArr = [...habits];
+
+        updatedArr.forEach((habit) => {
+          habit.days = [
+            ...habit.days,
+            ...Array(daysBetween(lastStoredDate)).fill(false),
+          ];
+          habit.streak = 0;
+        });
+
+        updateHabits(updatedArr);
+      }
+    }
+
+    // set today as new lastStoredDate
+    localStorage.fullDate = JSON.stringify(today.fullDate);
   }, []);
 
   useEffect(() => {
     inputOpenRef.current = inputOpen;
   }, [inputOpen]);
 
-  // useEffect(() => {
-  //   localStorage.habits = JSON.stringify(habits);
-  // }, [habits]);
-
-  function updateHabits(updatedArr) {
+  function updateHabits(updatedArr: IHabit[]) {
     setHabits(updatedArr);
     localStorage.habits = JSON.stringify(updatedArr);
-    console.log("storage", JSON.parse(localStorage.habits));
-  }
-
-  function deleteHabit(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault();
-    setDeleteModal(parseInt(e.target.value));
   }
 
   // triggers at midnight
@@ -71,6 +85,25 @@ function App() {
     });
 
     updateHabits(updatedArr);
+
+    // set today as new lastStoredDate
+    localStorage.fullDate = JSON.stringify(today.fullDate);
+  }
+
+  // update habit schedule
+  function toggleScheduleDate(e: React.MouseEvent<HTMLButtonElement>) {
+    let element = e.target as HTMLButtonElement;
+
+    const dayNum = parseInt(element.value);
+    let newSchedule = modal.schedule;
+
+    newSchedule = newSchedule.includes(dayNum)
+      ? newSchedule.filter((a: number) => a != dayNum)
+      : newSchedule.push(dayNum);
+
+    setModal({ ...modal, schedule: newSchedule });
+    console.log("new", newSchedule);
+    console.log(modal.schedule);
   }
 
   return (
@@ -117,12 +150,14 @@ function App() {
                         const timeout = setTimeout(() => {
                           // check if edit habit input is open
                           // if not, open modal
+                          const target = e.target as HTMLTextAreaElement;
                           inputOpenRef.current == null &&
                             setModal({
-                              ...habits[e.target.id],
+                              ...habits[target.id],
                               habitIndex: habitIndex,
+                              curName: habits[target.id].name,
                               longestStreak: longestStreak(
-                                habits[e.target.id].days
+                                habits[target.id].days
                               ),
                             });
                         }, 200);
@@ -133,7 +168,6 @@ function App() {
                         setInputOpen(habitIndex);
                       }}
                       className="habitName"
-                      id={habitIndex}
                     >
                       {habit.name}
                     </p>
@@ -149,7 +183,6 @@ function App() {
                         return (
                           <div
                             key={dayIndex}
-                            id={dayIndex}
                             onClick={() => {
                               let updatedArr = [...habits];
 
@@ -209,7 +242,6 @@ function App() {
               ]);
               setNewHabit("");
               setCurColor((cur) => (cur < colors.length - 1 ? cur + 1 : 0));
-              console.log(curColor, "/", colors.length);
               localStorage.habits = JSON.stringify(habits);
             }
           }}
@@ -256,30 +288,81 @@ function App() {
               let updatedArr = [...habits];
               updatedArr[modal.habitIndex].name = modal.name;
               // updatedArr[modal.habitIndex].schedule = modal.schedule;
-              // updatedArr[modal.habitIndex].color = modal.color;
+              updatedArr[modal.habitIndex].color = modal.color;
               updateHabits(updatedArr);
               setModal(null);
             }}
           >
-            <input
-              className="addHabit"
-              onChange={(e) => setModal({ ...modal, name: e.target.value })}
-              value={modal.name}
-              placeholder={modal.name}
-            />
+            <div>
+              <input
+                // className="addHabit"
+                onChange={(e) => setModal({ ...modal, name: e.target.value })}
+                value={modal.name}
+                placeholder={modal.name}
+              />
 
-            <p>
-              Longest Streak: {modal.longestStreak}{" "}
-              {modal.longestStreak !== 0 && modal.streak == modal.longestStreak
-                ? "🔥"
-                : null}
-            </p>
-            <p>Current Streak: {modal.streak}</p>
-            {/* currentColor */}
-            {/* schedule */}
-            <button value={modal.habitIndex} onClick={deleteHabit}>
-              delete
-            </button>
+              <p>
+                Longest Streak: {modal.longestStreak}{" "}
+                {modal.longestStreak !== 0 &&
+                modal.streak == modal.longestStreak
+                  ? "🔥"
+                  : null}
+              </p>
+              <p>Current Streak: {modal.streak}</p>
+              {/* currentColor */}
+
+              <label htmlFor="colors">Color:</label>
+              <select
+                id="colors"
+                value={modal.color}
+                onChange={(e) => setModal({ ...modal, color: e.target.value })}
+              >
+                <option value="purple">purple</option>
+                <option value="sky">sky</option>
+                <option value="pink">pink</option>
+                <option value="yellow">yellow</option>
+                <option value="blue">blue</option>
+                <option value="red">red</option>
+                <option value="green">green</option>
+                <option value="orange">orange</option>
+              </select>
+
+              <div className="flex">
+                <button value="0" onClick={toggleScheduleDate}>
+                  S
+                </button>
+                <button value="1" onClick={toggleScheduleDate}>
+                  M
+                </button>
+                <button value="2" onClick={toggleScheduleDate}>
+                  T
+                </button>
+                <button value="3" onClick={toggleScheduleDate}>
+                  W
+                </button>
+                <button value="4" onClick={toggleScheduleDate}>
+                  Th
+                </button>
+                <button value="5" onClick={toggleScheduleDate}>
+                  F
+                </button>
+                <button value="6" onClick={toggleScheduleDate}>
+                  S
+                </button>
+              </div>
+              {/* schedule */}
+              <button
+                className="link-button"
+                value={modal.habitIndex}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>): void => {
+                  let element = e.target as HTMLButtonElement;
+                  e.preventDefault();
+                  setDeleteModal(parseInt(element.value));
+                }}
+              >
+                Delete {modal.curName}
+              </button>
+            </div>
             <button type="submit">Save</button>
           </form>
         </div>
