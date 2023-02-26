@@ -101,8 +101,6 @@ function App() {
       : newSchedule.push(dayNum);
 
     setModal({ ...modal, schedule: newSchedule });
-    console.log("new", newSchedule);
-    console.log(modal.schedule);
   }
 
   return (
@@ -151,7 +149,7 @@ function App() {
                           // check if edit habit input is open
                           // if not, open modal
                           const element = e.target as HTMLTextAreaElement;
-                          console.log(element);
+
                           inputOpenRef.current == null &&
                             setModal({
                               ...habits[element.id],
@@ -193,17 +191,15 @@ function App() {
                                 !days[offset + dayIndex];
 
                               // update streak
-                              if (days[days.length - 1] == true) {
-                                let streak = 0;
-                                for (let i = days.length - 1; i > 0; i--) {
-                                  if (days[i]) {
-                                    streak++;
-                                  } else {
-                                    break;
-                                  }
+                              let streak = 0;
+                              for (let i = days.length - 1; i > 0; i--) {
+                                if (days[i] == true) {
+                                  streak++;
+                                } else {
+                                  break;
                                 }
-                                updatedArr[habitIndex].streak = streak;
                               }
+                              updatedArr[habitIndex].streak = streak;
 
                               updateHabits(updatedArr);
                             }}
