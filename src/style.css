@@ -195,7 +195,7 @@ button:hover {
   width: 500px;
   border-radius: 12px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-  padding: 2em;
+  padding: 1em;
 
   position: absolute;
   left: 0;
@@ -207,25 +207,55 @@ button:hover {
   transition: all 0.3s linear;
 
   background-color: rgb(170, 208, 244);
+  text-align: end;
 }
 
-.modal .addHabit {
+.modal svg {
+  color: rgb(62, 168, 255);
+}
+.modal svg:hover {
+  color: rgb(107, 188, 255);
+}
+
+.modal form div {
+  background-color: var(--primary);
+  text-align: start;
+  border-radius: 12px;
+  padding: 1em;
+  height: 165px;
+  margin: 0.2em 0;
+}
+.modal input {
   border-radius: 2px;
   box-shadow: none;
-  background-color: rgb(170, 208, 244);
-  border-bottom: 4px solid white;
+  background-color: var(--primary);
+  border: none;
+  border-bottom: 4px solid rgb(170, 208, 244);
   padding: 0 0.4em;
   font-size: 1.2em;
   margin-bottom: 0.6em;
+  font-family: inherit;
 }
-.modal button {
-  padding: 0.4em 1.6em;
-}
-.modal .addHabit:focus {
+.modal input:focus {
+  border-bottom: 4px solid var(--primary);
   background-color: white;
 }
-.modal svg:hover {
-  opacity: 60%;
+.link-button {
+  background-color: none;
+  border: none;
+  box-shadow: none;
+  color: red;
+  padding: 0 !important;
+  text-decoration: underline;
+}
+.link-button:hover {
+  box-shadow: none;
+  color: rgb(183, 0, 0);
+}
+
+.modal button {
+  padding: 0.4em 1.8em;
+  margin-right: 0.2em;
 }
 
 .deleteModal {
