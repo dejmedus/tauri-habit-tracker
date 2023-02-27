@@ -255,14 +255,6 @@ function App() {
             placeholder="Add a Task..."
           />
           <button type="submit">+</button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              updateHabits([]);
-            }}
-          >
-            DELETE ALL
-          </button>
         </form>
       </div>
 
