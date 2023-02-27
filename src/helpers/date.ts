@@ -61,7 +61,7 @@ export const dateObj = () => {
 
 // https://stackoverflow.com/questions/542938/how-to-calculate-number-of-days-between-two-dates
 export function daysBetween(lastStoredDate: Date) {
-  return ((UTC(new Date()) - UTC(lastStoredDate)) / 24) * 60 * 60 * 1000; // milliseconds per day
+  return (UTC(new Date()) - UTC(lastStoredDate)) / (24 * 60 * 60 * 1000); // milliseconds per day
 }
 
 function UTC(date: Date) {
