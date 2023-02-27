@@ -95,6 +95,7 @@ function App() {
 
   // update habit schedule
   function toggleScheduleDate(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
     let element = e.target as HTMLButtonElement;
 
     const dayNum = parseInt(element.value);
@@ -102,11 +103,10 @@ function App() {
 
     newSchedule = newSchedule.includes(dayNum)
       ? newSchedule.filter((a: number) => a != dayNum)
-      : newSchedule.push(dayNum);
+      : [...newSchedule, dayNum];
 
     setModal({ ...modal, schedule: newSchedule });
   }
-
   return (
     <div className="container">
       <h2>{`${today.day} ${today.month} ${today.date}${today.ordinal}`}</h2>
@@ -130,9 +130,8 @@ function App() {
               const offset = habit.days.length - 7;
               let completeCount = 0;
 
-              // if habit is scheduled to be completed today or if schedule is empty return it
-              return habit.schedule.length == 0 ||
-                habit.schedule.includes(today.dayNum) ? (
+              // only return habits schduled to today
+              return habit.schedule.includes(today.dayNum) ? (
                 <div className="flex" key={habit.name}>
                   {habitIndex == inputOpen ? (
                     <input
@@ -184,7 +183,7 @@ function App() {
                         let dayNumber = today.dayNum - (6 - dayIndex);
                         dayNumber = dayNumber < 0 ? 7 + dayNumber : dayNumber;
                         return (
-                          <div
+                          <button
                             key={dayIndex}
                             onClick={() => {
                               let updatedArr = [...habits];
@@ -213,9 +212,10 @@ function App() {
                                 ? `complete${++completeCount} ${habit.color}`
                                 : ""
                             }`}
+                            disabled={!habit.schedule.includes(dayNumber)}
                           >
                             {daysOfWeek[dayNumber][0]}
-                          </div>
+                          </button>
                         );
                       })}
                   </div>
@@ -226,7 +226,7 @@ function App() {
       </div>
 
       {/* add a habit */}
-      <div className="flex">
+      <div className="flex submitForm">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -237,7 +237,7 @@ function App() {
                 {
                   name: newHabit,
                   days: [false, false, false, false, false, false, false],
-                  schedule: [],
+                  schedule: [0, 1, 2, 3, 4, 5, 6],
                   color: colors[curColor],
                   streak: 0,
                 },
@@ -287,15 +287,16 @@ function App() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+
               let updatedArr = [...habits];
               updatedArr[modal.habitIndex].name = modal.name;
-              // updatedArr[modal.habitIndex].schedule = modal.schedule;
+              updatedArr[modal.habitIndex].schedule = modal.schedule;
               updatedArr[modal.habitIndex].color = modal.color;
               updateHabits(updatedArr);
               setModal(null);
             }}
           >
-            <div>
+            <div className="form-container">
               <input
                 onChange={(e) => setModal({ ...modal, name: e.target.value })}
                 value={modal.name}
@@ -317,40 +318,81 @@ function App() {
                 value={modal.color}
                 onChange={(e) => setModal({ ...modal, color: e.target.value })}
               >
-                <option value="purple">purple</option>
-                <option value="sky">sky</option>
-                <option value="pink">pink</option>
-                <option value="yellow">yellow</option>
-                <option value="blue">blue</option>
-                <option value="red">red</option>
-                <option value="green">green</option>
-                <option value="orange">orange</option>
+                <option value="purple">Purple</option>
+                <option value="sky">Sky</option>
+                <option value="pink">Pink</option>
+                <option value="yellow">Yellow</option>
+                <option value="blue">Blue</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="orange">Orange</option>
               </select>
 
-              {/* <div className="flex">
-                <button value="0" onClick={toggleScheduleDate}>
+              <div className="schedule flex">
+                <button
+                  className={
+                    modal.schedule.includes(0) ? `selected ${modal.color}` : ""
+                  }
+                  value="0"
+                  onClick={toggleScheduleDate}
+                >
                   S
                 </button>
-                <button value="1" onClick={toggleScheduleDate}>
+                <button
+                  className={
+                    modal.schedule.includes(1) ? `selected ${modal.color}` : ""
+                  }
+                  value="1"
+                  onClick={toggleScheduleDate}
+                >
                   M
                 </button>
-                <button value="2" onClick={toggleScheduleDate}>
+                <button
+                  className={
+                    modal.schedule.includes(2) ? `selected ${modal.color}` : ""
+                  }
+                  value="2"
+                  onClick={toggleScheduleDate}
+                >
                   T
                 </button>
-                <button value="3" onClick={toggleScheduleDate}>
+                <button
+                  className={
+                    modal.schedule.includes(3) ? `selected ${modal.color}` : ""
+                  }
+                  value="3"
+                  onClick={toggleScheduleDate}
+                >
                   W
                 </button>
-                <button value="4" onClick={toggleScheduleDate}>
+                <button
+                  className={
+                    modal.schedule.includes(4) ? `selected ${modal.color}` : ""
+                  }
+                  value="4"
+                  onClick={toggleScheduleDate}
+                >
                   Th
                 </button>
-                <button value="5" onClick={toggleScheduleDate}>
+                <button
+                  className={
+                    modal.schedule.includes(5) ? `selected ${modal.color}` : ""
+                  }
+                  value="5"
+                  onClick={toggleScheduleDate}
+                >
                   F
                 </button>
-                <button value="6" onClick={toggleScheduleDate}>
+                <button
+                  className={
+                    modal.schedule.includes(6) ? `selected ${modal.color}` : ""
+                  }
+                  value="6"
+                  onClick={toggleScheduleDate}
+                >
                   S
                 </button>
-              </div> */}
-              {/* schedule */}
+              </div>
               <button
                 className="link-button"
                 value={modal.habitIndex}
