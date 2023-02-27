@@ -27,21 +27,23 @@ function App() {
 
   const [today, setToday] = useState<IToday>(dateObj);
   const [habits, setHabits] = useState<IHabit[]>([]);
+  const habitsRef = useRef(habits);
 
   useEffect(() => {
-    // setTimeout, triggers at 12am
-    resetAtMidnight(reset);
+    let storedHabits = [];
 
     // when we click outside input, close input
     window.addEventListener("click", () => setInputOpen(null));
 
-    let storedHabits = [];
-    if (localStorage.habits !== null) {
+    if (localStorage.getItem("habits") !== null) {
       storedHabits = JSON.parse(localStorage.habits);
       setHabits(JSON.parse(localStorage.habits));
     }
 
-    if (localStorage.fullDate !== null) {
+    // setTimeout, triggers at 12am
+    resetAtMidnight(reset);
+
+    if (localStorage.getItem("fullDate") !== null) {
       let lastStoredDate = new Date(JSON.parse(localStorage.fullDate));
 
       // if days have passes since last app use
@@ -74,6 +76,7 @@ function App() {
 
   function updateHabits(updatedArr: IHabit[]) {
     setHabits(updatedArr);
+    habitsRef.current = updatedArr;
     localStorage.habits = JSON.stringify(updatedArr);
   }
 
@@ -81,13 +84,15 @@ function App() {
   function reset() {
     setToday(dateObj);
 
-    let updatedArr = [...habits];
-    updatedArr.forEach((habit) => {
-      habit.days.push(false);
-      habit.streak = 0;
-    });
+    if (habitsRef.current.length !== 0) {
+      let updatedArr = [...habitsRef.current];
+      updatedArr.forEach((habit) => {
+        habit.days.push(false);
+        habit.streak = 0;
+      });
 
-    updateHabits(updatedArr);
+      updateHabits(updatedArr);
+    }
 
     // set today as new lastStoredDate
     localStorage.fullDate = JSON.stringify(today.fullDate);
