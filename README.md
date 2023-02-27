@@ -18,3 +18,5 @@ A simple habit tracker made with [Tauri](https://tauri.app/) utilizing [local st
 
 #### Build
 ```CI=true npm run tauri build```
+
+<img width="681" alt="habits" src="https://user-images.githubusercontent.com/59973863/221506997-3ff68776-750a-45ef-a20c-c6d3b7691219.png">
