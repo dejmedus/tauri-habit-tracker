@@ -15,3 +15,6 @@ A simple habit tracker made with [Tauri](https://tauri.app/) utilizing [local st
 
 #### Run Dev
 ```npm run tauri dev```
+
+#### Build
+```CI=true npm run tauri build```
