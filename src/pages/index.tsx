@@ -35,7 +35,9 @@ function App() {
     // when we click outside input, close input
     window.addEventListener("click", () => setInputOpen(null));
 
-    if (localStorage.getItem("habits") !== null) {
+    let storedHabits = [];
+    if (localStorage.habits !== null) {
+      storedHabits = JSON.parse(localStorage.habits);
       setHabits(JSON.parse(localStorage.habits));
     }
 
@@ -43,20 +45,22 @@ function App() {
       let lastStoredDate = new Date(JSON.parse(localStorage.fullDate));
 
       // if days have passes since last app use
-      // if this doesn't like midnight changes, lastStoredDate < today.fullDate
-      if (lastStoredDate !== today.fullDate) {
-        // add those days to habit history
-        let updatedArr = [...habits];
+      // typeof(lastStoredDate) object typeof(today.fullDate) "object" ??
+      if (lastStoredDate.toString() !== today.fullDate.toString()) {
+        if (storedHabits.length > 0) {
+          // add those days to habit history
+          let updatedArr = [...storedHabits];
 
-        updatedArr.forEach((habit) => {
-          habit.days = [
-            ...habit.days,
-            ...Array(daysBetween(lastStoredDate)).fill(false),
-          ];
-          habit.streak = 0;
-        });
+          for (let i = 0; i < updatedArr.length; i++) {
+            updatedArr[i].days = [
+              ...updatedArr[i].days,
+              ...new Array(daysBetween(lastStoredDate)).fill(false),
+            ];
+            updatedArr[i].streak = 0;
+          }
 
-        updateHabits(updatedArr);
+          updateHabits(updatedArr);
+        }
       }
     }
 
@@ -143,7 +147,7 @@ function App() {
                     />
                   ) : (
                     <p
-                      id={habitIndex}
+                      data-id={habitIndex}
                       onClick={(e) => {
                         const timeout = setTimeout(() => {
                           // check if edit habit input is open
@@ -152,11 +156,11 @@ function App() {
 
                           inputOpenRef.current == null &&
                             setModal({
-                              ...habits[element.id],
+                              ...habits[element.dataset.id],
                               habitIndex: habitIndex,
-                              curName: habits[element.id].name,
+                              curName: habits[element.dataset.id].name,
                               longestStreak: longestStreak(
-                                habits[element.id].days
+                                habits[element.dataset.id].days
                               ),
                             });
                         }, 200);
@@ -192,7 +196,8 @@ function App() {
 
                               // update streak
                               let streak = 0;
-                              for (let i = days.length - 1; i > 0; i--) {
+
+                              for (let i = days.length - 1; i >= 0; i--) {
                                 if (days[i] == true) {
                                   streak++;
                                 } else {
@@ -227,8 +232,8 @@ function App() {
             e.preventDefault();
 
             if (newHabit.trim() !== "") {
-              setHabits((cur) => [
-                ...cur,
+              updateHabits([
+                ...habits,
                 {
                   name: newHabit,
                   days: [false, false, false, false, false, false, false],
@@ -237,9 +242,9 @@ function App() {
                   streak: 0,
                 },
               ]);
+
               setNewHabit("");
               setCurColor((cur) => (cur < colors.length - 1 ? cur + 1 : 0));
-              localStorage.habits = JSON.stringify(habits);
             }
           }}
         >
@@ -292,7 +297,6 @@ function App() {
           >
             <div>
               <input
-                // className="addHabit"
                 onChange={(e) => setModal({ ...modal, name: e.target.value })}
                 value={modal.name}
                 placeholder={modal.name}
@@ -306,7 +310,6 @@ function App() {
                   : null}
               </p>
               <p>Current Streak: {modal.streak}</p>
-              {/* currentColor */}
 
               <label htmlFor="colors">Color:</label>
               <select
