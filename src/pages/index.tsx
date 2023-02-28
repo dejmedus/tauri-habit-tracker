@@ -32,9 +32,6 @@ function App() {
   useEffect(() => {
     let storedHabits = [];
 
-    // when we click outside input, close input
-    window.addEventListener("click", () => setInputOpen(null));
-
     if (localStorage.getItem("habits") !== null) {
       storedHabits = JSON.parse(localStorage.habits);
       setHabits(JSON.parse(localStorage.habits));
@@ -113,7 +110,18 @@ function App() {
     setModal({ ...modal, schedule: newSchedule });
   }
   return (
-    <div className="container">
+    <div
+      className="container"
+      onClick={(e) => {
+        e.stopPropagation();
+        const element = e.target as HTMLTextAreaElement;
+
+        if (element.dataset.noevent == null) {
+          console.log(e.target);
+          setInputOpen(null);
+        }
+      }}
+    >
       <h2>{`${today.day} ${today.month} ${today.date}${today.ordinal}`}</h2>
       <div className="habits">
         {habits != null
@@ -140,6 +148,7 @@ function App() {
                 <div className="flex" key={habit.name}>
                   {habitIndex == inputOpen ? (
                     <input
+                      data-noevent="true"
                       className="habitName"
                       onKeyDown={handlePress}
                       onChange={(e) => {
