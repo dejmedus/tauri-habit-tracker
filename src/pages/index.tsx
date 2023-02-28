@@ -162,7 +162,6 @@ function App() {
                             setModal({
                               ...habits[element.dataset.id],
                               habitIndex: habitIndex,
-                              curName: habits[element.dataset.id].name,
                               longestStreak: longestStreak(
                                 habits[element.dataset.id].days
                               ),
@@ -257,7 +256,7 @@ function App() {
             className="addHabit"
             onChange={(e) => setNewHabit(e.currentTarget.value)}
             value={newHabit}
-            placeholder="Add a Task..."
+            placeholder="Add a habit..."
           />
           <button type="submit">+</button>
         </form>
@@ -399,7 +398,7 @@ function App() {
                   setDeleteModal(parseInt(element.value));
                 }}
               >
-                Delete {modal.curName}
+                Delete
               </button>
             </div>
             <button type="submit">Save</button>
