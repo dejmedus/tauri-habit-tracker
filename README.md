@@ -12,6 +12,10 @@ A simple habit tracker made with [Tauri](https://tauri.app/) utilizing [local st
 - [Next.js](https://nextjs.org/) full-stack React framework
 - [TypeScript](https://www.typescriptlang.org/) a strongly typed programming language that builds on JavaScript
 
+#### Assets
+
+> [App icon](https://icons8.com/icon/dR8yCG0Td1WH/check-all) by [Icons8](https://icons8.com")
+
 
 ## Screenshots
 
