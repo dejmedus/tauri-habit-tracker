@@ -20,7 +20,7 @@ const Modal = ({ modal, setModal, habits, updateHabits }) => {
 
   return (
     <>
-      <div className="modal">
+      <div className={`modal ${modal.color}`}>
         <svg
           onClick={() => setModal(null)}
           xmlns="http://www.w3.org/2000/svg"
@@ -104,54 +104,42 @@ const Modal = ({ modal, setModal, habits, updateHabits }) => {
                 S
               </button>
               <button
-                className={
-                  modal.schedule.includes(1) ? `selected ${modal.color}` : ""
-                }
+                className={modal.schedule.includes(1) ? `selected` : ""}
                 value="1"
                 onClick={toggleScheduleDate}
               >
                 M
               </button>
               <button
-                className={
-                  modal.schedule.includes(2) ? `selected ${modal.color}` : ""
-                }
+                className={modal.schedule.includes(2) ? `selected` : ""}
                 value="2"
                 onClick={toggleScheduleDate}
               >
                 T
               </button>
               <button
-                className={
-                  modal.schedule.includes(3) ? `selected ${modal.color}` : ""
-                }
+                className={modal.schedule.includes(3) ? `selected` : ""}
                 value="3"
                 onClick={toggleScheduleDate}
               >
                 W
               </button>
               <button
-                className={
-                  modal.schedule.includes(4) ? `selected ${modal.color}` : ""
-                }
+                className={modal.schedule.includes(4) ? `selected` : ""}
                 value="4"
                 onClick={toggleScheduleDate}
               >
                 Th
               </button>
               <button
-                className={
-                  modal.schedule.includes(5) ? `selected ${modal.color}` : ""
-                }
+                className={modal.schedule.includes(5) ? `selected` : ""}
                 value="5"
                 onClick={toggleScheduleDate}
               >
                 F
               </button>
               <button
-                className={
-                  modal.schedule.includes(6) ? `selected ${modal.color}` : ""
-                }
+                className={modal.schedule.includes(6) ? `selected` : ""}
                 value="6"
                 onClick={toggleScheduleDate}
               >

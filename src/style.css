@@ -190,14 +190,6 @@ button:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-/* .schedule button {
-  padding: 0.2em;
-  width: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
-
 .modal {
   height: 320px;
   width: 500px;
@@ -237,7 +229,7 @@ button:hover {
   box-shadow: none;
   background-color: var(--primary);
   border: none;
-  border-bottom: 4px solid rgb(170, 208, 244);
+  border-bottom: 4px solid #eaeaea;
   padding: 0 0.4em;
   font-size: 1.2em;
   margin-bottom: 0.6em;
