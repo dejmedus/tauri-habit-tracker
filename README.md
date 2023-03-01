@@ -1,4 +1,4 @@
-# Habit Tracker
+# 🌸 Habit Tracker 
 
 A simple habit tracker made with [Tauri](https://tauri.app/) utilizing [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 
