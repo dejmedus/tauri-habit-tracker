@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { daysOfWeek } from "../helpers/date";
 
 const Modal = ({ modal, setModal, habits, updateHabits }) => {
   const [deleteModal, setDeleteModal] = useState(null);
@@ -94,57 +95,21 @@ const Modal = ({ modal, setModal, habits, updateHabits }) => {
             </div>
 
             <div className="schedule flex">
-              <button
-                className={
-                  modal.schedule.includes(0) ? `selected ${modal.color}` : ""
-                }
-                value="0"
-                onClick={toggleScheduleDate}
-              >
-                S
-              </button>
-              <button
-                className={modal.schedule.includes(1) ? `selected` : ""}
-                value="1"
-                onClick={toggleScheduleDate}
-              >
-                M
-              </button>
-              <button
-                className={modal.schedule.includes(2) ? `selected` : ""}
-                value="2"
-                onClick={toggleScheduleDate}
-              >
-                T
-              </button>
-              <button
-                className={modal.schedule.includes(3) ? `selected` : ""}
-                value="3"
-                onClick={toggleScheduleDate}
-              >
-                W
-              </button>
-              <button
-                className={modal.schedule.includes(4) ? `selected` : ""}
-                value="4"
-                onClick={toggleScheduleDate}
-              >
-                Th
-              </button>
-              <button
-                className={modal.schedule.includes(5) ? `selected` : ""}
-                value="5"
-                onClick={toggleScheduleDate}
-              >
-                F
-              </button>
-              <button
-                className={modal.schedule.includes(6) ? `selected` : ""}
-                value="6"
-                onClick={toggleScheduleDate}
-              >
-                S
-              </button>
+              {Object.keys(daysOfWeek).map((day) => {
+                return (
+                  <button
+                    className={
+                      modal.schedule.includes(parseInt(day))
+                        ? `selected ${modal.color}`
+                        : ""
+                    }
+                    value={day}
+                    onClick={toggleScheduleDate}
+                  >
+                    {day == "4" ? "Th" : daysOfWeek[day][0]}
+                  </button>
+                );
+              })}
             </div>
             <button
               className="link-button"
