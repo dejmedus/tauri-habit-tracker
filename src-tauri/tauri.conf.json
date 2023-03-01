@@ -60,10 +60,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 440,
         "resizable": true,
         "title": "🌸",
-        "width": 800
+        "width": 650
       }
     ]
   }
