@@ -15,7 +15,8 @@ A simple habit tracker made with [Tauri](https://tauri.app/) utilizing [local st
 
 ## Screenshots
 
-<img width="681" alt="habits" src="https://user-images.githubusercontent.com/59973863/221506997-3ff68776-750a-45ef-a20c-c6d3b7691219.png">
+<img width="712" alt="habit-tracker" src="https://user-images.githubusercontent.com/59973863/222270582-65c6b4d2-2b10-4c87-ba94-04ff2d52db0a.png">
+<img width="689" alt="edit-modal" src="https://user-images.githubusercontent.com/59973863/222270607-9c4d708f-48e4-4e5c-90d8-b2f7a3e885db.png">
 
 ## Setup
 
