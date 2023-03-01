@@ -199,7 +199,7 @@ button:hover {
 } */
 
 .modal {
-  height: 280px;
+  height: 320px;
   width: 500px;
   border-radius: 12px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
@@ -217,7 +217,6 @@ button:hover {
   background-color: rgb(170, 208, 244);
   text-align: end;
 }
-
 .modal svg {
   color: rgb(62, 168, 255);
 }
@@ -228,10 +227,10 @@ button:hover {
 .modal .form-container {
   background-color: var(--primary);
   text-align: start;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 1em;
-  height: 165px;
-  margin: 0.2em 0;
+  height: 215px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 .modal input {
   border-radius: 2px;
@@ -243,6 +242,7 @@ button:hover {
   font-size: 1.2em;
   margin-bottom: 0.6em;
   font-family: inherit;
+  font-weight: 500;
 }
 .modal input:focus {
   border-bottom: 4px solid var(--primary);
@@ -274,6 +274,7 @@ button:hover {
 .schedule button {
   padding: 0.1em 1em;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: #f7f7f7;
 }
 .schedule button.selected {
   background-color: rgb(var(--color));
