@@ -54,7 +54,6 @@ const Modal = ({ modal, setModal, habits, updateHabits }) => {
               value={modal.name}
               placeholder={modal.name}
             />
-
             <p>
               Longest Streak: {modal.longestStreak}{" "}
               {modal.longestStreak !== 0 && modal.streak == modal.longestStreak
@@ -78,6 +77,21 @@ const Modal = ({ modal, setModal, habits, updateHabits }) => {
               <option value="green">Green</option>
               <option value="orange">Orange</option>
             </select>
+
+            <div className="history flex">
+              {[
+                ...new Array(120 - modal.days.length).fill(false),
+                ...modal.days,
+              ]
+                .slice(-120)
+                .map((day: boolean) => {
+                  return (
+                    <div
+                      className={day ? `complete ${modal.color}` : null}
+                    ></div>
+                  );
+                })}
+            </div>
 
             <div className="schedule flex">
               <button
