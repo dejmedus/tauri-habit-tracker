@@ -72,7 +72,6 @@ const Modal = ({ modal, setModal, habits, updateHabits }) => {
               <option value="purple">Purple</option>
               <option value="sky">Sky</option>
               <option value="pink">Pink</option>
-              <option value="yellow">Yellow</option>
               <option value="blue">Blue</option>
               <option value="red">Red</option>
               <option value="green">Green</option>
@@ -80,10 +79,7 @@ const Modal = ({ modal, setModal, habits, updateHabits }) => {
             </select>
 
             <div className="history flex">
-              {[
-                ...new Array(120 - modal.days.length).fill(false),
-                ...modal.days,
-              ]
+              {[...new Array(120).fill(false), ...modal.days]
                 .slice(-120)
                 .map((day: boolean) => {
                   return (
