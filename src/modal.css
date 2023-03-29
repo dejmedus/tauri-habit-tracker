@@ -1,0 +1,150 @@
+.modal {
+  height: 320px;
+  width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  padding: 1em;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  -webkit-transition: 0.5s;
+  transition: all 0.3s linear;
+
+  background-color: rgb(var(--color));
+  text-align: end;
+}
+.modal svg {
+  color: var(--bg);
+}
+.modal svg:hover {
+  opacity: 60%;
+}
+.modal button[type="submit"]:hover {
+  background-color: var(--bg);
+}
+
+.modal .form-container {
+  background-color: var(--primary);
+  text-align: start;
+  border-radius: 6px;
+  padding: 1em;
+  height: 215px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+.modal input {
+  border-radius: 2px;
+  box-shadow: none;
+  background-color: var(--primary);
+  border: none;
+  border-bottom: 4px solid rgb(var(--color));
+  padding: 0 0.4em;
+  font-size: 1.2em;
+  margin-bottom: 0.6em;
+  font-family: inherit;
+  font-weight: 500;
+  color: inherit;
+}
+.modal input:focus {
+  border-bottom: 4px solid var(--primary);
+  background-color: white;
+}
+.modal select {
+  font-size: 1.1em;
+}
+.modal button {
+  padding: 0.4em 1.8em;
+  margin-right: 0.2em;
+}
+.modal label {
+  margin-right: 0.4em;
+}
+.history {
+  gap: 0.1em;
+  flex-wrap: wrap;
+  margin: 0.4em 0;
+}
+.history div {
+  height: 10px;
+  width: 10px;
+  border-radius: 2px;
+  background-color: var(--secondary);
+}
+.history .complete {
+  background-color: var(--text-color);
+}
+
+.schedule {
+  height: fit-content !important;
+  margin: 0.25em 0;
+  justify-content: space-around;
+}
+.schedule button {
+  padding: 0.1em 1em;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary);
+  color: var(--tertiary);
+}
+.schedule button:hover {
+  color: var(--text);
+}
+.schedule button.selected {
+  background-color: rgb(var(--color));
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+.link-button {
+  background-color: none;
+  border: none;
+  box-shadow: none;
+  color: red;
+  padding: 0 !important;
+  text-decoration: underline;
+}
+.link-button:hover {
+  box-shadow: none;
+  color: rgb(183, 0, 0);
+}
+
+.deleteModal {
+  height: 100px;
+  width: 260px;
+  background-color: var(--primary);
+  border-radius: 12px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  padding: 2em;
+  z-index: 2;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+
+  -webkit-transition: 0.5s;
+  transition: all 0.3s linear;
+
+  font-weight: bold;
+}
+.deleteModal span {
+  text-decoration: underline;
+}
+.deleteModal div {
+  margin-top: 1em;
+  justify-content: center;
+}
+.deleteModal button:first-of-type {
+  background-color: rgb(106, 176, 255);
+}
+.deleteModal button {
+  background-color: rgb(255, 112, 112);
+}
+.deleteModal button:first-of-type:hover {
+  background-color: rgb(89, 166, 255);
+}
+.deleteModal button:hover {
+  background-color: rgb(255, 86, 86);
+}

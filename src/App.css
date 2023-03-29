@@ -1,0 +1,123 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  --text: #0f0f0f;
+  --bg: #f6f6f6;
+
+  --primary: #ffffff;
+  --secondary: #e8e8e8;
+  --tertiary: black;
+
+  color: var(--text);
+  background-color: var(--bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Lightmode Color Pallete */
+.purple {
+  /* #d8b4fe; */
+  --color: 216, 180, 254;
+  --text-color: rgb(184, 118, 255);
+}
+.sky {
+  /* #7dd3fc; */
+  --color: 125, 211, 252;
+  --text-color: rgb(85, 201, 255);
+}
+.blue {
+  /* #93c5fd; */
+  --color: 147, 197, 253;
+  --text-color: rgb(81, 162, 255);
+}
+.orange {
+  /* #fdba74; */
+  --color: 253, 186, 116;
+  --text-color: rgb(255, 155, 48);
+}
+.pink {
+  /* #f9a8d4; */
+  --color: 249, 168, 212;
+  --text-color: rgb(255, 94, 183);
+}
+.green {
+  /* #bef264; */
+  --color: 190, 242, 100;
+  --text-color: rgb(156, 227, 34);
+}
+.red {
+  /* rgb(255, 129, 129); */
+  --color: 255, 129, 129;
+  --text-color: rgb(255, 79, 79);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+.flex button {
+  margin: 0 0.28em;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #d9d9d9;
+    --bg: #1f1f1f;
+
+    --primary: black;
+    --secondary: #2a2a2a;
+    --tertiary: white;
+
+    color: var(--text);
+    background-color: var(--bg);
+  }
+
+  /* Darkmode Color Pallete */
+  .purple {
+    /* rgb(184, 118, 255); */
+    --color: 184, 118, 255;
+    --text-color: #d8b4fe;
+  }
+  .sky {
+    /* rgb(85, 201, 255); */
+    --color: 85, 201, 255;
+    --text-color: rgb(125, 211, 252);
+  }
+  .blue {
+    /* rgb(81, 162, 255); */
+    --color: 81, 162, 255;
+    --text-color: #93c5fd;
+  }
+  .orange {
+    /* rgb(255, 161, 61); */
+    --color: 255, 161, 61;
+    --text-color: #fdba74;
+  }
+  .pink {
+    /* rgb(255, 94, 183); */
+    --color: 255, 94, 183;
+    --text-color: #f9a8d4;
+  }
+  .green {
+    /* rgb(172, 246, 45); */
+    --color: 172, 246, 45;
+    --text-color: #bef264;
+  }
+  .red {
+    /* rgb(255, 79, 79); */
+    --color: 255, 79, 79;
+    --text-color: rgb(255, 129, 129);
+  }
+}

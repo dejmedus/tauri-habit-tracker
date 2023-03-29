@@ -1,70 +1,3 @@
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  --text: #0f0f0f;
-  --bg: #f6f6f6;
-
-  --primary: #ffffff;
-
-  color: var(--text);
-  background-color: var(--bg);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-.purple {
-  /* #d8b4fe; */
-  --color: 216, 180, 254;
-  --text-color: rgb(184, 118, 255);
-}
-.sky {
-  /* #7dd3fc; */
-  --color: 125, 211, 252;
-  --text-color: rgb(85, 201, 255);
-}
-.blue {
-  /* #93c5fd; */
-  --color: 147, 197, 253;
-  --text-color: rgb(81, 162, 255);
-}
-.orange {
-  /* #fdba74; */
-  --color: 253, 186, 116;
-  --text-color: rgb(255, 155, 48);
-}
-.pink {
-  /* #f9a8d4; */
-  --color: 249, 168, 212;
-  --text-color: rgb(255, 94, 183);
-}
-.green {
-  /* #bef264; */
-  --color: 190, 242, 100;
-  --text-color: rgb(156, 227, 34);
-}
-.yellow {
-  /* rgb(255, 255, 136); */
-  --color: 255, 251, 131;
-  --text-color: rgb(255, 221, 0);
-}
-.red {
-  /* rgb(255, 129, 129); */
-  --color: 255, 129, 129;
-  --text-color: rgb(255, 79, 79);
-}
-
-* {
-  padding: 0;
-  margin: 0;
-}
-
 .container {
   margin: 2em 4em;
   display: flex;
@@ -75,15 +8,12 @@
 .container h2 {
   text-align: center;
   font-weight: 500;
-  color: rgb(157, 157, 157);
+  color: var(--text);
+  opacity: 70%;
   padding: 4vh 0;
 }
-.flex {
-  display: flex;
-  align-items: center;
-}
-.flex button {
-  margin: 0 0.28em;
+.container button[type="submit"]:hover {
+  opacity: 90%;
 }
 
 .habits {
@@ -93,15 +23,29 @@
   gap: 0.2em;
   margin-left: 0.4em;
 }
-.habitName {
-  font-size: 1.2em;
+.habitNameContainer {
   width: 30vw;
+}
+.habitName {
+  /* remove button styling */
+  background-color: none !important;
+  border: none;
+  box-shadow: none !important;
+  padding: 0 !important;
+  box-shadow: none;
+  width: fit-content;
+
+  font-size: 1.2em;
   cursor: pointer;
   text-align: start;
   margin-right: 1em;
 }
+
 .boxes {
   gap: 0 0.1em;
+}
+.boxes button {
+  color: rgb(255, 255, 255, 0);
 }
 .box {
   width: 32px;
@@ -116,25 +60,19 @@
   margin: 0 !important;
 }
 .box:disabled {
-  background-color: grey;
-  color: grey;
-  --text-color: rgb(94, 94, 94);
-  box-shadow: 0 0.5px 0.5px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary);
+  color: var(--secondary);
+  --text-color: var(--secondary);
+  box-shadow: none;
+
+  /* disapear */
+  /* background-color: var(--bg);
+  color: var(--bg);
+  --text-color: var(--bg); */
 }
 .box:hover {
   color: var(--text-color);
 }
-
-.complete1,
-.complete2,
-.complete3,
-.complete4,
-.complete5,
-.complete6,
-.complete7 {
-  color: rgb(255, 255, 255, 0);
-}
-
 .complete7 {
   background-color: rgb(var(--color));
 }
@@ -187,195 +125,5 @@ button {
   margin-top: 0.5em;
 }
 button:hover {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-}
-
-.modal {
-  height: 320px;
-  width: 500px;
-  border-radius: 12px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-  padding: 1em;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-
-  -webkit-transition: 0.5s;
-  transition: all 0.3s linear;
-
-  background-color: rgb(170, 208, 244);
-  text-align: end;
-}
-.modal svg {
-  color: rgb(62, 168, 255);
-}
-.modal svg:hover {
-  color: rgb(107, 188, 255);
-}
-
-.modal .form-container {
-  background-color: var(--primary);
-  text-align: start;
-  border-radius: 6px;
-  padding: 1em;
-  height: 215px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-}
-.modal input {
-  border-radius: 2px;
-  box-shadow: none;
-  background-color: var(--primary);
-  border: none;
-  border-bottom: 4px solid rgb(170, 208, 244);
-  padding: 0 0.4em;
-  font-size: 1.2em;
-  margin-bottom: 0.6em;
-  font-family: inherit;
-  font-weight: 500;
-}
-.modal input:focus {
-  border-bottom: 4px solid var(--primary);
-  background-color: white;
-}
-.modal select {
-  font-size: 1.1em;
-}
-.modal button {
-  padding: 0.4em 1.8em;
-  margin-right: 0.2em;
-}
-.modal label {
-  margin-right: 0.4em;
-}
-.history {
-  gap: 0.1em;
-  flex-wrap: wrap;
-  margin: 0.4em 0;
-}
-.history div {
-  height: 10px;
-  width: 10px;
-  border-radius: 2px;
-  background-color: #e8e8e8;
-}
-.history .complete {
-  background-color: var(--text-color);
-}
-
-.schedule {
-  height: fit-content !important;
-  margin: 0.25em 0;
-  justify-content: space-around;
-}
-.schedule button {
-  padding: 0.1em 1em;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  background-color: #f7f7f7;
-}
-.schedule button.selected {
-  background-color: rgb(var(--color));
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-}
-.link-button {
-  background-color: none;
-  border: none;
-  box-shadow: none;
-  color: red;
-  padding: 0 !important;
-  text-decoration: underline;
-}
-.link-button:hover {
-  box-shadow: none;
-  color: rgb(183, 0, 0);
-}
-
-.deleteModal {
-  height: 100px;
-  width: 280px;
-  background-color: var(--primary);
-  border-radius: 12px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-  padding: 2em;
-  z-index: 2;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-
-  -webkit-transition: 0.5s;
-  transition: all 0.3s linear;
-
-  font-weight: bold;
-}
-.deleteModal span {
-  text-decoration: underline;
-}
-.deleteModal div {
-  margin-top: 1em;
-  justify-content: center;
-}
-.deleteModal button:first-of-type {
-  background-color: rgb(106, 176, 255);
-}
-.deleteModal button {
-  background-color: rgb(255, 112, 112);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #f6f6f6;
-    --bg: #1f1f1f;
-
-    --primary: black;
-
-    color: var(--text);
-    background-color: var(--bg);
-  }
-
-  .purple {
-    /* rgb(184, 118, 255); */
-    --color: 184, 118, 255;
-    --text-color: #d8b4fe;
-  }
-  .sky {
-    /* rgb(85, 201, 255); */
-    --color: 85, 201, 255;
-    --text-color: rgb(125, 211, 252);
-  }
-  .blue {
-    /* rgb(81, 162, 255); */
-    --color: 81, 162, 255;
-    --text-color: #93c5fd;
-  }
-  .orange {
-    /* rgb(255, 161, 61); */
-    --color: 255, 161, 61;
-    --text-color: #fdba74;
-  }
-  .pink {
-    /* rgb(255, 94, 183); */
-    --color: 255, 94, 183;
-    --text-color: #f9a8d4;
-  }
-  .green {
-    /* rgb(172, 246, 45); */
-    --color: 172, 246, 45;
-    --text-color: #bef264;
-  }
-  .yellow {
-    /* rgb(255, 252, 52); */
-    --color: 255, 252, 52;
-    --text-color: rgb(255, 255, 136);
-  }
-  .red {
-    /* rgb(255, 79, 79); */
-    --color: 255, 79, 79;
-    --text-color: rgb(255, 129, 129);
-  }
+  /* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); */
 }
