@@ -23,6 +23,7 @@ const months = [
   "December",
 ];
 
+// Return correct ordinal prefix
 const ordinal = (number: number) => {
   if (number > 3 && number < 21) return "th";
   switch (number % 10) {
@@ -37,6 +38,7 @@ const ordinal = (number: number) => {
   }
 };
 
+// Current date, standardized to midnight
 export const dateObj = () => {
   const newDate = new Date();
   const day = new Date(
@@ -45,7 +47,7 @@ export const dateObj = () => {
     newDate.getDate(),
     0,
     0,
-    0 // ...at 00:00:00 hours);
+    0 // 00:00:00 hours/midnight
   );
   return {
     fullDate: day,
@@ -59,6 +61,7 @@ export const dateObj = () => {
   };
 };
 
+// Get the number of days that has passed since last using Habits app
 // https://stackoverflow.com/questions/542938/how-to-calculate-number-of-days-between-two-dates
 export function daysBetween(lastStoredDate: Date) {
   return (UTC(new Date()) - UTC(lastStoredDate)) / (24 * 60 * 60 * 1000); // milliseconds per day
@@ -71,7 +74,7 @@ function UTC(date: Date) {
     date.getDate(),
     0,
     0,
-    0 // ...at 00:00:00 hours
+    0
   );
 
   // valueOf because typescript prefers a number
