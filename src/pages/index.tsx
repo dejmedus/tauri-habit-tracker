@@ -154,7 +154,7 @@ function App() {
                             updateHabits={updateHabits}
                             dayIndex={dayIndex}
                             complete={complete}
-                            completeCount={++completeCount}
+                            completeCount={complete ? ++completeCount : 0}
                             today={today}
                           />
                         );
