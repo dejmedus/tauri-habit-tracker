@@ -1,4 +1,3 @@
-import React from "react";
 import { daysOfWeek } from "../helpers/date";
 
 const HabitBox = ({
@@ -8,13 +7,11 @@ const HabitBox = ({
   updateHabits,
   dayIndex,
   complete,
+  completeCount,
   today,
 }) => {
   // offset is the number of hidden, previous boxes
   const offset = habit.days.length - 7;
-
-  // amount of completed days in a week
-  let completeCount = 0;
 
   // get the number of this box's dayOfTheWeek
   // first day box should be tomorrows date
@@ -47,7 +44,7 @@ const HabitBox = ({
         updateHabits(updatedArr);
       }}
       className={`box flex ${
-        complete == true ? `complete${++completeCount} ${habit.color}` : ""
+        complete == true ? `complete${completeCount} ${habit.color}` : ""
       }`}
       disabled={!habit.schedule.includes(dayNumber)}
     >
