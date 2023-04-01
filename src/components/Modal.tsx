@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { daysOfWeek } from "../helpers/date";
+import { IModal, IHabit } from "../helpers/types";
+import { CloseSVG } from "../assets/SVG/CloseSVG";
 
-const Modal = ({ modal, setModal, habits, updateHabits }) => {
+interface ModalProps {
+  modal: IModal;
+  setModal: React.Dispatch<React.SetStateAction<IModal>>;
+  habits: IHabit[];
+  updateHabits: React.Dispatch<React.SetStateAction<IHabit[]>>;
+}
+
+const Modal = ({ modal, setModal, habits, updateHabits }: ModalProps) => {
   const [deleteModal, setDeleteModal] = useState(null);
 
   // update habit schedule
@@ -22,21 +31,10 @@ const Modal = ({ modal, setModal, habits, updateHabits }) => {
   return (
     <>
       <div className={`modal ${modal.color}`}>
-        <svg
-          onClick={() => setModal(null)}
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
+        <button className="closeBtn" onClick={() => setModal(null)}>
+          <CloseSVG />
+        </button>
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
