@@ -111,6 +111,9 @@ function App() {
       <div className="habits">
         {habits != null
           ? habits.map((habit, habitIndex) => {
+              // amount of completed days in a week
+              let completeCount = 0;
+
               // only return habits scheduled for today
               return habit.schedule.includes(today.dayNum) ? (
                 <div className="flex" key={habit.name}>
@@ -151,6 +154,7 @@ function App() {
                             updateHabits={updateHabits}
                             dayIndex={dayIndex}
                             complete={complete}
+                            completeCount={++completeCount}
                             today={today}
                           />
                         );
