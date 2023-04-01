@@ -21,20 +21,17 @@ const HabitName = ({
 }) => {
   return (
     <p
-      data-id={habitIndex}
       // open modal
-      onClick={(e) => {
+      onClick={() => {
         // delay onClick in case of onDoubleClick (edit habit input)
         setTimeout(() => {
-          const element = e.target as HTMLTextAreaElement;
-
           // if edit habit input is not open, setModal state to IModal
           // modal opens on non-null state
           inputOpenRef.current == null &&
             setModal({
-              ...habits[element.dataset.id],
+              ...habits[habitIndex],
               habitIndex: habitIndex,
-              longestStreak: longestStreak(habits[element.dataset.id].days),
+              longestStreak: longestStreak(habits[habitIndex].days),
             });
         }, 200);
       }}
