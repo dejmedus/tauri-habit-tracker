@@ -23,9 +23,6 @@
   gap: 0.2em;
   margin-left: 0.4em;
 }
-.habitNameContainer {
-  width: 30vw;
-}
 .habitName {
   /* remove button styling */
   background-color: none !important;
@@ -34,6 +31,8 @@
   padding: 0 !important;
   box-shadow: none;
   width: fit-content;
+
+  width: 30vw;
 
   font-size: 1.2em;
   cursor: pointer;
@@ -64,11 +63,6 @@
   color: var(--secondary);
   --text-color: var(--secondary);
   box-shadow: none;
-
-  /* disapear */
-  /* background-color: var(--bg);
-  color: var(--bg);
-  --text-color: var(--bg); */
 }
 .box:hover {
   color: var(--text-color);
@@ -125,5 +119,11 @@ button {
   margin-top: 0.5em;
 }
 button:hover {
-  /* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); */
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  button:hover {
+    opacity: 95%;
+  }
 }
