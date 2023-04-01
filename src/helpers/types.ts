@@ -16,3 +16,15 @@ export interface IHabit {
   color: string;
   streak: number;
 }
+
+export interface IModal {
+  // habit
+  name: string;
+  days: boolean[];
+  schedule: number[];
+  color: string;
+  streak: number;
+
+  habitIndex: number;
+  longestStreak: number;
+}
