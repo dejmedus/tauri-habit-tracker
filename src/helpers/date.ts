@@ -23,7 +23,7 @@ const months = [
   "December",
 ];
 
-// Return correct ordinal prefix
+// Return ordinal suffix
 const ordinal = (number: number) => {
   if (number > 3 && number < 21) return "th";
   switch (number % 10) {
@@ -38,17 +38,10 @@ const ordinal = (number: number) => {
   }
 };
 
-// Current date, standardized to midnight
+// Current date as usable values
 export const dateObj = () => {
-  const newDate = new Date();
-  const day = new Date(
-    newDate.getFullYear(),
-    newDate.getMonth(),
-    newDate.getDate(),
-    0,
-    0,
-    0 // 00:00:00 hours/midnight
-  );
+  const day = midnight(new Date());
+
   return {
     fullDate: day,
     fullDateString: day.toDateString(),
@@ -64,22 +57,25 @@ export const dateObj = () => {
 // Get the number of days that has passed since last using Habits app
 // https://stackoverflow.com/questions/542938/how-to-calculate-number-of-days-between-two-dates
 export function daysBetween(lastStoredDate: Date) {
-  return (UTC(new Date()) - UTC(lastStoredDate)) / (24 * 60 * 60 * 1000); // milliseconds per day
+  return (
+    // valueOf because typescript prefers a number
+    // https://stackoverflow.com/questions/36560806/the-left-hand-side-of-an-arithmetic-operation-must-be-of-type-any-number-or
+    Math.round(
+      midnight(new Date()).valueOf() - midnight(lastStoredDate).valueOf()
+    ) /
+    (24 * 60 * 60 * 1000)
+  );
 }
 
-function UTC(date: Date) {
-  let result = new Date(
+// set date to midnight
+function midnight(date: Date) {
+  return new Date(
     date.getFullYear(),
     date.getMonth(),
     date.getDate(),
     0,
     0,
+    0,
     0
   );
-
-  // valueOf because typescript prefers a number
-  // https://stackoverflow.com/questions/36560806/the-left-hand-side-of-an-arithmetic-operation-must-be-of-type-any-number-or
-  return result
-    .setMinutes(result.getMinutes() - result.getTimezoneOffset())
-    .valueOf();
 }
