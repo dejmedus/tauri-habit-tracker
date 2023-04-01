@@ -19,8 +19,9 @@ A simple habit tracker desktop app made with [Tauri](https://tauri.app/) utilizi
 
 ## Screenshots
 
-<img width="712" alt="habit-tracker" src="https://user-images.githubusercontent.com/59973863/222270582-65c6b4d2-2b10-4c87-ba94-04ff2d52db0a.png">
-<img width="689" alt="edit-modal" src="https://user-images.githubusercontent.com/59973863/222270607-9c4d708f-48e4-4e5c-90d8-b2f7a3e885db.png">
+<img width="702" alt="light" src="https://user-images.githubusercontent.com/59973863/229295412-c17bc084-5e85-455d-9cb4-7930bf9fc2f4.png">
+<img width="707" alt="dark" src="https://user-images.githubusercontent.com/59973863/229295414-fb1093fa-010a-41b2-80e7-ccfcc2dfcd1f.png">
+
 
 ## Setup
 
