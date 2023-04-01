@@ -39,6 +39,7 @@ const AddHabit = ({ habits, newHabit, setNewHabit, updateHabits }) => {
         }}
       >
         <input
+          aria-label="Add a habit"
           className="addHabit"
           onChange={(e) => setNewHabit(e.currentTarget.value)}
           value={newHabit}

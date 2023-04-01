@@ -49,6 +49,7 @@ const Modal = ({ modal, setModal, habits, updateHabits }: ModalProps) => {
         >
           <div className="form-container">
             <input
+              aria-label="Edit habit name"
               onChange={(e) => setModal({ ...modal, name: e.target.value })}
               value={modal.name}
               placeholder={modal.name}

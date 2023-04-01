@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const EditHabitName = ({
   editHabit,
   setEditHabit,
@@ -11,6 +9,7 @@ const EditHabitName = ({
 }) => {
   return (
     <input
+      aria-label="Edit habit name"
       data-noevent="true"
       className="habitName"
       onKeyDown={(e) => {
