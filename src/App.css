@@ -86,38 +86,38 @@
 
   /* Darkmode Color Pallete */
   .purple {
-    /* rgb(184, 118, 255); */
-    --color: 184, 118, 255;
+    /* rgb(150, 95, 209); */
+    --color: 150, 95, 209;
     --text-color: #d8b4fe;
   }
   .sky {
-    /* rgb(85, 201, 255); */
-    --color: 85, 201, 255;
+    /* rgb(70, 165, 210); */
+    --color: 70, 165, 210;
     --text-color: rgb(125, 211, 252);
   }
   .blue {
-    /* rgb(81, 162, 255); */
-    --color: 81, 162, 255;
+    /* rgb(59, 122, 195); */
+    --color: 59, 122, 195;
     --text-color: #93c5fd;
   }
   .orange {
-    /* rgb(255, 161, 61); */
-    --color: 255, 161, 61;
-    --text-color: #fdba74;
+    /* rgb(219, 133, 41); */
+    --color: 219, 133, 41;
+    --text-color: #e4a664;
   }
   .pink {
-    /* rgb(255, 94, 183); */
-    --color: 255, 94, 183;
-    --text-color: #f9a8d4;
+    /* rgb(180, 66, 129); */
+    --color: 180, 66, 129;
+    --text-color: #d87eb0;
   }
   .green {
-    /* rgb(172, 246, 45); */
-    --color: 172, 246, 45;
-    --text-color: #bef264;
+    /* rgb(96, 136, 26); */
+    --color: 96, 136, 26;
+    --text-color: #86aa47;
   }
   .red {
-    /* rgb(255, 79, 79); */
-    --color: 255, 79, 79;
-    --text-color: rgb(255, 129, 129);
+    /* rgb(183, 56, 56); */
+    --color: 183, 56, 56;
+    --text-color: rgb(225, 115, 115);
   }
 }
