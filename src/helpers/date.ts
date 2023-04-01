@@ -58,8 +58,7 @@ export const dateObj = () => {
 // https://stackoverflow.com/questions/542938/how-to-calculate-number-of-days-between-two-dates
 export function daysBetween(lastStoredDate: Date) {
   return (
-    // valueOf because typescript prefers a number
-    // https://stackoverflow.com/questions/36560806/the-left-hand-side-of-an-arithmetic-operation-must-be-of-type-any-number-or
+    // rounded number of ms between two dates divided by ms in a day
     Math.round(
       midnight(new Date()).valueOf() - midnight(lastStoredDate).valueOf()
     ) /
