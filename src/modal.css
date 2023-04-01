@@ -17,10 +17,18 @@
   background-color: rgb(var(--color));
   text-align: end;
 }
-.modal svg {
+.modal .closeBtn {
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: red;
+  padding: 0 !important;
+  text-decoration: underline;
+}
+.closeBtn svg {
   color: var(--bg);
 }
-.modal svg:hover {
+.closeBtn svg:hover {
   opacity: 60%;
 }
 .modal button[type="submit"]:hover {
