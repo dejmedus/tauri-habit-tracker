@@ -8,17 +8,11 @@ import HabitName from "../components/HabitName";
 import HabitBox from "../components/HabitBox";
 import Modal from "../components/Modal";
 import AddHabit from "../components/AddHabit";
-import EditHabitName from "../components/EditHabitName";
 
 function App() {
   const [newHabit, setNewHabit] = useState<string>("");
-  const [editHabit, setEditHabit] = useState<string>("");
 
   const [modal, setModal] = useState<IModal | null>(null);
-
-  // EditHabitName toggle, habitIndex | null
-  const [inputOpen, setInputOpen] = useState<number | null>(null);
-  const inputOpenRef = useRef(inputOpen);
 
   const [today, setToday] = useState<IToday>(dateObj);
 
@@ -26,44 +20,62 @@ function App() {
   const habitsRef = useRef(habits);
 
   useEffect(() => {
-    if (localStorage.getItem("habits") !== null) {
-      habitsRef.current = JSON.parse(localStorage.habits);
-      setHabits(JSON.parse(localStorage.habits));
-    }
-
-    // setTimeout, triggers at 12am
-    resetAtMidnight(reset);
-
-    if (localStorage.getItem("fullDate") !== null) {
-      let lastStoredDate = new Date(JSON.parse(localStorage.fullDate));
-
-      // if days have passes since last app use
-      if (lastStoredDate.toString() != today.fullDate.toString()) {
-        // if habits array isn't empty
-        if (habitsRef.current.length > 0) {
-          // add those missed days to habit history
-          let updatedArr = [...habitsRef.current];
-
-          for (let i = 0; i < updatedArr.length; i++) {
-            updatedArr[i].days = [
-              ...updatedArr[i].days,
-              ...new Array(daysBetween(lastStoredDate)).fill(false),
-            ];
-            updatedArr[i].streak = 0;
-          }
-
-          updateHabits(updatedArr);
+    const loadStoredHabits = () => {
+      try {
+        const storedHabits = JSON.parse(localStorage.getItem("habits")) || [];
+        if (storedHabits.length > 0) {
+          habitsRef.current = storedHabits;
+          setHabits(storedHabits);
         }
+      } catch (error) {
+        console.error("Error loading stored habits:", error);
       }
-    }
+    };
 
-    // set today as new lastStoredDate
-    localStorage.fullDate = JSON.stringify(today.fullDate);
+    const updateHabitsIfDaysPassed = () => {
+      try {
+        if (localStorage.getItem("fullDate") !== null) {
+          let lastStoredDate = new Date(JSON.parse(localStorage.fullDate));
+
+          // if days have passed since last app use
+          if (lastStoredDate.toString() != today.fullDate.toString()) {
+            // if habits array isn't empty
+            if (habitsRef.current.length > 0) {
+              // add those missed days to habit history
+              let updatedArr = [...habitsRef.current];
+
+              for (let i = 0; i < updatedArr.length; i++) {
+                let daysMissed = daysBetween(lastStoredDate);
+                daysMissed = daysMissed < 0 ? 0 : daysMissed;
+                updatedArr[i].days = [
+                  ...updatedArr[i].days,
+                  ...new Array(daysMissed).fill(false),
+                ];
+                updatedArr[i].streak = 0;
+              }
+
+              updateHabits(updatedArr);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error updating habits if days passed:", error);
+      }
+    };
+
+    const setTodayAsLastStoredDate = () => {
+      try {
+        localStorage.fullDate = JSON.stringify(today.fullDate);
+      } catch (error) {
+        console.error("Error setting today as last stored date:", error);
+      }
+    };
+
+    loadStoredHabits();
+    resetAtMidnight(reset);
+    updateHabitsIfDaysPassed();
+    setTodayAsLastStoredDate();
   }, []);
-
-  useEffect(() => {
-    inputOpenRef.current = inputOpen;
-  }, [inputOpen]);
 
   function updateHabits(updatedArr: IHabit[]) {
     setHabits(updatedArr);
@@ -91,20 +103,7 @@ function App() {
   }
 
   return (
-    <div
-      className="container"
-      onClick={(e) => {
-        const element = e.target as HTMLTextAreaElement;
-
-        // if an edit habit name input is open/inputOpen is set to habitIndex
-        if (inputOpen !== null) {
-          // if click is outside of the input, close input without saving
-          if (element.dataset.noevent == null) {
-            setInputOpen(null);
-          }
-        }
-      }}
-    >
+    <div className="container">
       {/* display todays date */}
       <h2>{`${today.day} ${today.month} ${today.date}${today.ordinal}`}</h2>
 
@@ -117,32 +116,15 @@ function App() {
               // only return habits scheduled for today
               return habit.schedule.includes(today.dayNum) ? (
                 <div className="flex" key={habit.name}>
-                  {/* if habit at this index has been double clicked */}
-                  {/* show input to edit habit name */}
-                  {habitIndex == inputOpen ? (
-                    <EditHabitName
-                      editHabit={editHabit}
-                      setEditHabit={setEditHabit}
-                      habitIndex={habitIndex}
-                      habits={habits}
-                      updateHabits={updateHabits}
-                      setInputOpen={setInputOpen}
-                      modal={modal}
-                    />
-                  ) : (
-                    <HabitName
-                      habit={habit}
-                      habitIndex={habitIndex}
-                      habits={habits}
-                      setInputOpen={setInputOpen}
-                      inputOpenRef={inputOpenRef}
-                      setModal={setModal}
-                      setEditHabit={setEditHabit}
-                    />
-                  )}
+                  <HabitName
+                    habit={habit}
+                    habitIndex={habitIndex}
+                    habits={habits}
+                    setModal={setModal}
+                  />
 
                   {/* habits */}
-                  <div className="boxes flex">
+                  <div className="flex boxes">
                     {habit.days
                       .slice(habit.days.length - 7)
                       .map((complete, dayIndex) => {
