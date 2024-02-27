@@ -3,7 +3,7 @@
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
     "devPath": "http://localhost:1420",
-    "distDir": "../dist",
+    "distDir": "../out",
     "withGlobalTauri": false
   },
   "package": {
@@ -60,10 +60,14 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 440,
+        "height": 400,
         "resizable": true,
         "title": "Habits",
-        "width": 650
+        "width": 540,
+        "minWidth": 540,
+        "maxWidth": 540,
+        "minHeight": 400,
+        "maxHeight": 540
       }
     ]
   }
