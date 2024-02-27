@@ -60,14 +60,14 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 400,
+        "height": 440,
         "resizable": true,
         "title": "Habits",
-        "width": 540,
-        "minWidth": 540,
-        "maxWidth": 540,
-        "minHeight": 400,
-        "maxHeight": 540
+        "width": 620,
+        "minWidth": 620,
+        "maxWidth": 620,
+        "minHeight": 440,
+        "maxHeight": 500
       }
     ]
   }
