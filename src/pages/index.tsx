@@ -103,51 +103,52 @@ function App() {
   }
 
   return (
-    <div className="container">
-      {/* display todays date */}
-      <h2>{`${today.day} ${today.month} ${today.date}${today.ordinal}`}</h2>
+    <div className="flex-container">
+      <div className="container">
+        {/* display todays date */}
+        <h2>{`${today.day} ${today.month} ${today.date}${today.ordinal}`}</h2>
 
-      <div className="habits">
-        {habits != null
-          ? habits.map((habit, habitIndex) => {
-              // amount of completed days in a week
-              let completeCount = 0;
+        <div className="habits">
+          {habits != null
+            ? habits.map((habit, habitIndex) => {
+                // amount of completed days in a week
+                let completeCount = 0;
 
-              // only return habits scheduled for today
-              return habit.schedule.includes(today.dayNum) ? (
-                <div className="flex" key={habit.name}>
-                  <HabitName
-                    habit={habit}
-                    habitIndex={habitIndex}
-                    habits={habits}
-                    setModal={setModal}
-                  />
+                // only return habits scheduled for today
+                return habit.schedule.includes(today.dayNum) ? (
+                  <div className="flex habit-row" key={habit.name}>
+                    <HabitName
+                      habit={habit}
+                      habitIndex={habitIndex}
+                      habits={habits}
+                      setModal={setModal}
+                    />
 
-                  {/* habits */}
-                  <div className="flex boxes">
-                    {habit.days
-                      .slice(habit.days.length - 7)
-                      .map((complete, dayIndex) => {
-                        return (
-                          <HabitBox
-                            habit={habit}
-                            habitIndex={habitIndex}
-                            habits={habits}
-                            updateHabits={updateHabits}
-                            dayIndex={dayIndex}
-                            complete={complete}
-                            completeCount={complete ? ++completeCount : 0}
-                            today={today}
-                          />
-                        );
-                      })}
+                    {/* habits */}
+                    <div className="flex boxes">
+                      {habit.days
+                        .slice(habit.days.length - 7)
+                        .map((complete, dayIndex) => {
+                          return (
+                            <HabitBox
+                              habit={habit}
+                              habitIndex={habitIndex}
+                              habits={habits}
+                              updateHabits={updateHabits}
+                              dayIndex={dayIndex}
+                              complete={complete}
+                              completeCount={complete ? ++completeCount : 0}
+                              today={today}
+                            />
+                          );
+                        })}
+                    </div>
                   </div>
-                </div>
-              ) : null;
-            })
-          : null}
+                ) : null;
+              })
+            : null}
+        </div>
       </div>
-
       {/* add a habit */}
       <AddHabit
         habits={habits}

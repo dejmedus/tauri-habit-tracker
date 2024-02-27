@@ -1,27 +1,36 @@
-.container {
-  margin: 2em 4em;
+.flex-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  margin: 1em 4em 1em 4em;
+  height: 90vh;
+}
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   gap: 0.4em;
+  margin: 0 0.5em;
 }
 .container h2 {
   text-align: center;
   font-weight: 500;
   color: var(--text);
   opacity: 70%;
-  padding: 4vh 0;
+  padding: 1em 0;
 }
 .container button[type="submit"]:hover {
   opacity: 90%;
 }
 
+.habit-row {
+  justify-content: space-between;
+}
+
 .habits {
-  min-height: 50vh;
   display: flex;
   flex-direction: column;
   gap: 0.2em;
-  margin-left: 0.4em;
 }
 .habitName {
   /* remove button styling */
@@ -115,11 +124,14 @@ button {
   color: var(--text);
   background-color: var(--primary);
   transition: border-color 0.25s;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   margin-top: 0.5em;
 }
 button:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.addHabit-container button {
+  color: var(--half-text);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -5,7 +5,8 @@
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   padding: 1em;
 
-  position: absolute;
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -125,7 +126,8 @@
   padding: 2em;
   z-index: 2;
 
-  position: absolute;
+  position: fixed;
+  top: 100px;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -144,15 +146,19 @@
   margin-top: 1em;
   justify-content: center;
 }
+.deleteModal button {
+  font-weight: 600;
+  color: white;
+}
 .deleteModal button:first-of-type {
-  background-color: rgb(106, 176, 255);
+  background-color: rgb(96, 170, 255);
 }
 .deleteModal button {
-  background-color: rgb(255, 112, 112);
+  background-color: rgb(255, 93, 93);
 }
 .deleteModal button:first-of-type:hover {
-  background-color: rgb(89, 166, 255);
+  background-color: rgb(78, 161, 255);
 }
 .deleteModal button:hover {
-  background-color: rgb(255, 86, 86);
+  background-color: rgb(255, 77, 77);
 }

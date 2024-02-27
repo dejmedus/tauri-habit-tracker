@@ -10,6 +10,7 @@
   font-weight: 400;
 
   --text: #0f0f0f;
+  --half-text: #8e8e8e;
   --bg: #f6f6f6;
 
   --primary: #ffffff;
@@ -74,6 +75,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #d9d9d9;
+    --half-text: #797979;
     --bg: #1f1f1f;
 
     --primary: black;

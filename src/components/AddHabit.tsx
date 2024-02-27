@@ -28,7 +28,7 @@ const AddHabit = ({
   const [curColor, setCurColor] = useState<number>(0);
 
   return (
-    <div className="flex submitForm">
+    <div className="flex addHabit-container submitForm">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -55,7 +55,7 @@ const AddHabit = ({
           className="addHabit"
           onChange={(e) => setNewHabit(e.currentTarget.value)}
           value={newHabit}
-          placeholder="Add a habit..."
+          placeholder="Add a habit"
         />
         <button type="submit">+</button>
       </form>
