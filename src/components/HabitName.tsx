@@ -1,4 +1,4 @@
-import React from "react";
+import { IHabit } from "../helpers/types";
 
 function longestStreak(days: boolean[]) {
   let streak = 0;
@@ -14,31 +14,22 @@ const HabitName = ({
   habit,
   habitIndex,
   habits,
-  setInputOpen,
-  inputOpenRef,
   setModal,
-  setEditHabit,
+}: {
+  habit: IHabit;
+  habitIndex: number;
+  habits: IHabit[];
+  setModal: React.Dispatch<React.SetStateAction<any>>;
 }) => {
   return (
     <p
       // open modal
       onClick={() => {
-        // delay onClick in case of onDoubleClick (edit habit input)
-        setTimeout(() => {
-          // if edit habit input is not open, setModal state to IModal
-          // modal opens on non-null state
-          inputOpenRef.current == null &&
-            setModal({
-              ...habits[habitIndex],
-              habitIndex: habitIndex,
-              longestStreak: longestStreak(habits[habitIndex].days),
-            });
-        }, 200);
-      }}
-      // open edit habit input
-      onDoubleClick={() => {
-        setEditHabit(habit.name);
-        setInputOpen(habitIndex);
+        setModal({
+          ...habits[habitIndex],
+          habitIndex: habitIndex,
+          longestStreak: longestStreak(habits[habitIndex].days),
+        });
       }}
       className="habitName"
     >

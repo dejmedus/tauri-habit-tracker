@@ -1,6 +1,18 @@
 import { useState } from "react";
 
-const AddHabit = ({ habits, newHabit, setNewHabit, updateHabits }) => {
+import { IHabit } from "../helpers/types";
+
+const AddHabit = ({
+  habits,
+  newHabit,
+  setNewHabit,
+  updateHabits,
+}: {
+  habits: IHabit[];
+  newHabit: string;
+  setNewHabit: React.Dispatch<React.SetStateAction<string>>;
+  updateHabits: React.Dispatch<React.SetStateAction<IHabit[]>>;
+}) => {
   const colors = [
     "purple",
     "sky",

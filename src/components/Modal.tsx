@@ -3,14 +3,17 @@ import { daysOfWeek } from "../helpers/date";
 import { IModal, IHabit } from "../helpers/types";
 import { CloseSVG } from "../assets/SVG/CloseSVG";
 
-interface ModalProps {
+const Modal = ({
+  modal,
+  setModal,
+  habits,
+  updateHabits,
+}: {
   modal: IModal;
   setModal: React.Dispatch<React.SetStateAction<IModal>>;
   habits: IHabit[];
   updateHabits: React.Dispatch<React.SetStateAction<IHabit[]>>;
-}
-
-const Modal = ({ modal, setModal, habits, updateHabits }: ModalProps) => {
+}) => {
   const [deleteModal, setDeleteModal] = useState(null);
 
   // update habit schedule
@@ -77,7 +80,7 @@ const Modal = ({ modal, setModal, habits, updateHabits }: ModalProps) => {
               <option value="orange">Orange</option>
             </select>
 
-            <div className="history flex">
+            <div className="flex history">
               {[...new Array(120).fill(false), ...modal.days]
                 .slice(-120)
                 .map((day: boolean) => {
@@ -89,7 +92,7 @@ const Modal = ({ modal, setModal, habits, updateHabits }: ModalProps) => {
                 })}
             </div>
 
-            <div className="schedule flex">
+            <div className="flex schedule">
               {Object.keys(daysOfWeek).map((day) => {
                 return (
                   <button

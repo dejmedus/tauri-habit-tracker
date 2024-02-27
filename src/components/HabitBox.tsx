@@ -1,4 +1,5 @@
 import { daysOfWeek } from "../helpers/date";
+import { IHabit, IToday } from "../helpers/types";
 
 const HabitBox = ({
   habit,
@@ -9,6 +10,15 @@ const HabitBox = ({
   complete,
   completeCount,
   today,
+}: {
+  habit: IHabit;
+  habitIndex: number;
+  habits: IHabit[];
+  updateHabits: React.Dispatch<React.SetStateAction<IHabit[]>>;
+  dayIndex: number;
+  complete: boolean;
+  completeCount: number;
+  today: IToday;
 }) => {
   // offset is the number of hidden, previous boxes
   const offset = habit.days.length - 7;
