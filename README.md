@@ -1,4 +1,4 @@
-# 🌸 Habit Tracker 
+# 🌸 Habit Tracker
 
 A simple habit tracker desktop app made with [Tauri](https://tauri.app/) utilizing [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 
@@ -16,16 +16,15 @@ A simple habit tracker desktop app made with [Tauri](https://tauri.app/) utilizi
 
 > [App icon](https://icons8.com/icon/dR8yCG0Td1WH/check-all) by [Icons8](https://icons8.com")
 
-
 ## Screenshots
 
 <img width="702" alt="light" src="https://user-images.githubusercontent.com/59973863/229295412-c17bc084-5e85-455d-9cb4-7930bf9fc2f4.png">
 <img width="707" alt="dark" src="https://user-images.githubusercontent.com/59973863/229295414-fb1093fa-010a-41b2-80e7-ccfcc2dfcd1f.png">
 
-
 ## Setup
 
 1. Clone the repo
+
 ```shell
 git clone https://github.com/dejmedus/tauri-habit-tracker.git
 ```
@@ -36,16 +35,24 @@ git clone https://github.com/dejmedus/tauri-habit-tracker.git
 cd tauri-habit-tracker
 ```
 
-3. *Optionally* install Tauri recommended IDE environment
+3. _Optionally_ install Tauri recommended IDE environment
+
    - [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
-4. Run the app
+4. Install dependencies
+
+```shell
+npm i
+```
+
+5. Run the app
 
 ```shell
 npm run tauri dev
 ```
 
-5. Build
+6. Build
+
 ```
 CI=true npm run tauri build
 ```
