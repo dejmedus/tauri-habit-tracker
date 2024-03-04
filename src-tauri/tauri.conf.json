@@ -62,7 +62,7 @@
         "fullscreen": false,
         "height": 440,
         "resizable": true,
-        "title": "Habits",
+        "title": "",
         "width": 620,
         "minWidth": 620,
         "maxWidth": 620,
